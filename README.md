@@ -62,4 +62,4 @@
 https://www.figma.com/file/pbZEOPLIKdOmKMe3aiG9tU/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0%3A1&t=Df6UdHSyURYHaj0K-1
 
 ## ER図
-[![Image from Gyazo](https://i.gyazo.com/d36b99b1750ebe900d6b2308553a274d.png)](https://gyazo.com/d36b99b1750ebe900d6b2308553a274d)
+[![Image from Gyazo](https://i.gyazo.com/09ecab885e7050c20343374d67d8a6ab.png)](https://gyazo.com/09ecab885e7050c20343374d67d8a6ab)
