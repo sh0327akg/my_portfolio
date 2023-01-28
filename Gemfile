@@ -68,6 +68,8 @@ group :development do
   gem 'rubocop-performance', require: false
   gem "bullet"
   gem "annotate"
+  gem "better_errors"
+  gem "binding_of_caller"
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
