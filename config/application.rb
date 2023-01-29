@@ -35,7 +35,7 @@ module MyPortfolio
     config.generator do |g|
       g.system_tests = nil
       g.helper false
-      g.stlylesheets false
+      g.stylesheets false
     end
   end
 end
