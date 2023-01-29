@@ -1,8 +1,8 @@
 inherit_from: .rubocop_todo.yml
 
 require:
+  - rubocop
   - rubocop-rails
-  - rubocop-rspec
   - rubocop-performance
 
 AllCops:
@@ -83,7 +83,6 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: true
-
 
 Bundler/OrderedGems:
   Enabled: false
