@@ -81,7 +81,7 @@ test:
 #
 production:
   <<: *default
-  database: cldh2tdqp00jj9tryax7p6opm
-  username: cldh2tdqn00jh9try652q1k3x
+  database: cldi9ia29000g9ro416x849o0
+  username: cldi9ia28000e9ro4593gds4y
   password: <%= ENV["MY_PORTFOLIO_DATABASE_PASSWORD"] %>
   url: <%= ENV['DATABASE_URL'] %>
