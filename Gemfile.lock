@@ -113,6 +113,10 @@ GEM
       railties (>= 5.0.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    graphql (2.0.16)
+    graphql-client (0.18.0)
+      activesupport (>= 3.0)
+      graphql
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
@@ -287,6 +291,7 @@ DEPENDENCIES
   cssbundling-rails
   debug
   factory_bot_rails
+  graphql-client
   jbuilder
   jsbundling-rails
   pg (~> 1.1)
