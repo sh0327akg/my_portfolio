@@ -13,6 +13,8 @@ require "action_text/engine"
 require "action_view/railtie"
 require "action_cable/engine"
 # require "rails/test_unit/railtie"
+require "graphql/client"
+require "graphql/client/http"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -38,4 +40,15 @@ module MyPortfolio
       g.stylesheets false
     end
   end
+
+  AUTH_HEADER = "Bearer #{}"
+
+  HTTP = GraphQL::Client::HTTP.new("https://api.github.com/graphql") do
+    def headers(context)
+      { "Authorization": AUTH_HEADER }
+    end
+  end
+  Schema = GraphQL::Client.load_schema(HTTP)
+
+  Client = GraphQL::Client.new(Schema: Schema, execute: HTTP)
 end
