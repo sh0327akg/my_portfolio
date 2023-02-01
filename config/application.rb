@@ -41,14 +41,13 @@ module MyPortfolio
     end
   end
 
-  AUTH_HEADER = "Bearer #{}"
+  AUTH_HEADER = "Bearer #{ENV['GITHUB_ACCESS_TOKEN']}"
 
-  HTTP = GraphQL::Client::HTTP.new("https://api.github.com/graphql") do
+  HTTPAdapter = GraphQL::Client::HTTP.new("https://api.github.com/graphql") do
     def headers(context)
       { "Authorization": AUTH_HEADER }
     end
   end
-  Schema = GraphQL::Client.load_schema(HTTP)
-
-  Client = GraphQL::Client.new(Schema: Schema, execute: HTTP)
+  Schema = GraphQL::Client.load_schema(HTTPAdapter)
+  Client = GraphQL::Client.new(schema: Schema, execute: HTTPAdapter)
 end
