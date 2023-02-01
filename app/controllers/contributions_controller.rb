@@ -13,9 +13,9 @@ class ContributionsController < ApplicationController
       }
     GRAPHQL
 
-  def index
-    @contribution_number
-  end
+  def index; end
+
+  def new; end
 
   private
 
