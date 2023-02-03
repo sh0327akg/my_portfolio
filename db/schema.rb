@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_02_125426) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_03_064600) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contributions", force: :cascade do |t|
+    t.integer "contribution_number", null: false
+    t.bigint "mountain_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mountain_id"], name: "index_contributions_on_mountain_id"
+  end
 
   create_table "mountains", force: :cascade do |t|
     t.string "kana"
@@ -26,4 +34,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_02_125426) do
     t.index ["elevation"], name: "index_mountains_on_elevation"
   end
 
+  add_foreign_key "contributions", "mountains"
 end
