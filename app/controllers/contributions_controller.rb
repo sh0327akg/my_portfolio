@@ -24,15 +24,30 @@ class ContributionsController < ApplicationController
 
     contribution_number = graphql_result(user: account_name).user.contributions_collection.contribution_calendar.total_contributions
     @contribution.contribution_number = contribution_number
-
-    mountains = Mountain.where('elevation <= ?', contribution_number )
-    mountain = mountains.min_by{ |m| (m.elevation - contribution_number).abs}
+    if contribution_number <= Mountain.highest.elevation
+      mountain = set_mountains(contribution_number)
+    else
+       #富士山の標高をcontribution_numberから引く
+      gap_contribution = contribution_number - 3776
+      mountain = set_mountains(gap_contribution)
+    end
     @contribution.mountain_id = mountain.id
+    @contribution.save!
+
+    redirect_to contribution_path(@contribution), notice: "正常に完了しました"
+  end
+
+  def show
+    @contribution = Contribution.find(params[:id])
   end
 
   private
 
   def graphql_result(variables = {})
     response = MyPortfolio::Client.query(Query, variables: variables).data
+  end
+
+  def set_mountains(contribution_number)
+    Mountain.where('elevation <= ?', contribution_number).min_by{ |m| (m.elevation - contribution_number).abs}
   end
 end
