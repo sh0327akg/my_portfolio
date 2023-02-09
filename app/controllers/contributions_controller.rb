@@ -1,26 +1,53 @@
 class ContributionsController < ApplicationController
-  before_action :result, only: [:index]
 
   Query = MyPortfolio::Client.parse <<-'GRAPHQL'
-      query {
-        user(login: "sh0327akg") {
-          contributionsCollection {
-            contributionCalendar {
-              totalContributions
+            query($user: String!) {
+              user(login: $user) {
+                contributionsCollection {
+                  contributionCalendar {
+                    totalContributions
+                  }
+                }
+              }
             }
-          }
-        }
-      }
-    GRAPHQL
+          GRAPHQL
 
   def index; end
 
-  def new; end
+  def new
+    @contribution = Contribution.new
+  end
+
+  def create
+    account_name = params[:user_name]
+    @contribution = Contribution.new
+
+    contribution_number = graphql_result(user: account_name).user.contributions_collection.contribution_calendar.total_contributions
+    @contribution.contribution_number = contribution_number
+    if contribution_number <= Mountain.highest.elevation
+      mountain = set_mountains(contribution_number)
+    else
+       #富士山の標高をcontribution_numberから引く
+      gap_contribution = contribution_number - 3776
+      mountain = set_mountains(gap_contribution)
+    end
+    @contribution.mountain_id = mountain.id
+    @contribution.save!
+
+    redirect_to contribution_path(@contribution), notice: "正常に完了しました"
+  end
+
+  def show
+    @contribution = Contribution.find(params[:id])
+  end
 
   private
 
-  def result
-    result = MyPortfolio::Client.query(Query)
-    @contribution_number = result.data.user.contributions_collection.contribution_calendar.total_contributions
+  def graphql_result(variables = {})
+    response = MyPortfolio::Client.query(Query, variables: variables).data
+  end
+
+  def set_mountains(contribution_number)
+    Mountain.where('elevation <= ?', contribution_number).min_by{ |m| (m.elevation - contribution_number).abs}
   end
 end

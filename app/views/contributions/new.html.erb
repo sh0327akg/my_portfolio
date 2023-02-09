@@ -1,0 +1,9 @@
+<div class="container relative z-10 flex items-center px-6 py-32 mx-auto md:px-1 xl:py-40">
+  <div class="relative z-10 flex flex-col w-full">
+    <%= form_with url: contributions_path, class: "form-control w-full md:auto" do |f| %>
+      <%= f.label :user_name, "GitHubアカウント名を入力", class:"text-base"%>
+      <%= f.text_field :user_name, class: "input input-bordered input-lg", placeholder:"GitHubアカウント名" %>
+      <%= f.submit "Let's 草刈！", class: "btn mt-4"%>
+    <% end %>
+  </div>
+</div>

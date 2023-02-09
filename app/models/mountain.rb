@@ -17,4 +17,7 @@
 #  index_mountains_on_elevation  (elevation)
 #
 class Mountain < ApplicationRecord
+  has_many :contributions
+
+  scope :highest, -> { order(elevation: :desc).first }
 end
