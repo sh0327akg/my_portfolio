@@ -18,4 +18,6 @@
 #
 class Contribution < ApplicationRecord
   belongs_to :mountain
+
+  validates :contribution_number, presence: true
 end

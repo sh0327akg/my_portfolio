@@ -17,5 +17,5 @@
 #  index_mountains_on_elevation  (elevation)
 #
 class Mountain < ApplicationRecord
-  has_may :contributions
+  has_many :contributions
 end
