@@ -1,3 +1,11 @@
-<%= @contribution.mountain.name %>
-<%= @contribution.mountain.prefecture %>
-<%= @contribution.mountain.elevation %>
+<div class="container relative z-10 items-center px-6 py-6 mx-auto md:px-1 xl:py-40">
+  <div class="text-center">
+    <h2 class="text-2xl"><span class="text-5xl"><%= @contribution.mountain.name %></span><span class="text-sm">(<%= @contribution.mountain.prefecture %>)</span>級の草を積み上げました！</h2>
+    <p class="text-xl">よっ！<span class="text-3xl"><%= @contribution.mountain.elevation %>m</span> 超え</p>
+    <div class="flex flex-col my-4 w-80 mx-auto">
+      <%= link_to 'ログインしてみんなの山を見に行く', '#' ,class:"grid h-10 bg-base-300 rounded-box place-items-center"%>
+      <div class="divider">OR</div>
+      <%= link_to 'ツイートする', '#', class:"grid h-10 bg-base-300 rounded-box place-items-center"%>
+    </div>
+  </div>
+</div>
