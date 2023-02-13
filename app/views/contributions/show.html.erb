@@ -12,6 +12,7 @@
     </div>
     <div class="flex flex-col my-4 w-80 mx-auto">
       <%= link_to 'ログインしてみんなの山を見に行く', '#' ,class:"grid h-10 bg-base-300 rounded-box place-items-center"%>
+      <%= button_to "Sign in with GitHub", user_github_omniauth_authorize_path, method: :post, data: { turbo: false } %>
       <div class="divider">OR</div>
       <%= link_to 'ツイートする', '#', class:"grid h-10 bg-base-300 rounded-box place-items-center"%>
     </div>
