@@ -1,6 +1,6 @@
 <div class="navbar bg-primary text-primary-content px-3 drop-shadow-xl">
   <div class="flex-1">
-    <a class="btn btn-ghost normal-case text-xl">草刈山雄（仮）</a>
+    <%= link_to '草刈山雄（仮）', root_path, class:"btn btn-ghost normal-case text-xl" %>
   </div>
   <div class="navbar-end">
     <div class="flex-none">
@@ -10,6 +10,11 @@
         <li><a>Item 3</a></li>
       </ul>
     </div>
-    <a class="btn">Get started</a>
+    <% if user_signed_in? %>
+      <%= current_user.nickname%>
+      <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class:"btn" %>
+    <% else %>
+      <%= button_to "Sign in", user_github_omniauth_authorize_path, method: :post, data: { turbo: false }, class:"btn" %>
+    <% end %>
   </div>
 </div>

@@ -9,7 +9,7 @@ class ContributionsController < ApplicationController
                 }
               }
             }
-          GRAPHQL
+  GRAPHQL
 
   def index; end
 
@@ -43,7 +43,7 @@ class ContributionsController < ApplicationController
   private
 
   def graphql_result(variables = {})
-    MyPortfolio::Client.query(Query, variables: variables).data
+    MyPortfolio::Client.query(Query, variables:).data
   end
 
   def set_mountains(contribution_number)
