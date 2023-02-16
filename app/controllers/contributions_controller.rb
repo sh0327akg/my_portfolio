@@ -33,7 +33,7 @@ class ContributionsController < ApplicationController
     @contribution.mountain_id = mountain.id
     @contribution.save!
 
-    redirect_to contribution_path(@contribution), notice: "正常に完了しました"
+    redirect_to contribution_path(@contribution)
   end
 
   def show
