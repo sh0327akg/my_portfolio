@@ -12,8 +12,8 @@ class ContributionsController < ApplicationController
   GRAPHQL
 
   def index
-    contributions = Contribution.
-    @mountains = contributions.map(&:mountain)
+    contributions = Contribution.all
+    gon.mountains = contributions.map(&:mountain)
   end
 
   def new

@@ -13,19 +13,25 @@
 
 <script>
   let map;
-  let marker;
-  const mountainPosition = { lat: 36.204824, lng: 138.252924 }
+  let marker = [];
+
+  const mountains = gon.mountains
+  const centerPosition = { lat: 36.204824, lng: 138.252924 };
 
   function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
-      center: mountainPosition,
+      center: centerPosition,
       zoom: 8,
     });
-
-    marker = new google.maps.Marker({
-      position: mountainPosition,
-      map,
-    });
+    for(let i = 0, i < mountains.length, i++){
+      marker[i] = new google.maps.Marker({
+        map,
+        position: { 
+          lat: mountains[i].latitude,
+          lng: mountains[i].longitude,
+        },
+      });
+    }
   }
 
   window.initMap = initMap;
