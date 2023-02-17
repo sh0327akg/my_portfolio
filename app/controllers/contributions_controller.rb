@@ -13,7 +13,7 @@ class ContributionsController < ApplicationController
 
   def index
     contributions = Contribution.all
-    gon.mountains = contributions.map(&:mountain)
+    gon.mountains = contributions.map(&:mountain).uniq
   end
 
   def new
