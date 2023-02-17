@@ -1,35 +1,57 @@
 <div class="container h-screen">
   <h2>ユーザー一覧</h2>
-  <div class="max-w-full px-4">
+  <div class="max-w-full px-10">
     <div id="map" class="w-full"></div>
   </div>
 </div>
 
 <style>
   #map {
-      height: 600px;
+      height: 90vh;
     }
 </style>
 
 <script>
   let map;
-  let marker = [];
+  let mountainMarker = [];
+  let mountainInfo = [];
 
   const mountains = gon.mountains
   const centerPosition = { lat: 36.204824, lng: 138.252924 };
 
   function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
+      streetViewControl: false,
+      mapTypeControl: false,
+      fullscreenControl: false,
       center: centerPosition,
-      zoom: 8,
+      zoom: 6,
     });
-    for(let i = 0, i < mountains.length, i++){
-      marker[i] = new google.maps.Marker({
+    for(let i = 0; i < mountains.length; i++){
+      mountainMarker[i] = new google.maps.Marker({
         map,
         position: { 
           lat: mountains[i].latitude,
           lng: mountains[i].longitude,
         },
+      });
+
+      // let id = mountains[i]['id'];
+
+      mountainInfo[i] = new google.maps.InfoWindow({
+        content: mountains[i].name,
+        maxWidth: 300,
+      });
+
+      mountainMarker[i].addListener("click", ()=>{
+        mountainInfo[i].open(map, mountainMarker[i]);
+        map.setZoom(8)
+        map.setCenter(mountainMarker[i].getPosition());
+      });
+
+      mountainInfo[i].addListener('closeclick',()=>{
+        map.setZoom(6),
+        map.setCenter(centerPosition)
       });
     }
   }
