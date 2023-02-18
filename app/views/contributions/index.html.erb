@@ -13,7 +13,7 @@
 
 <script>
   let map;
-  let mountainMarker = [];
+  let mountainMarkers = [];
   let infoWindow = [];
 
   const mountains = gon.mountains
@@ -29,15 +29,15 @@
     });
 
     const markerEvent = (i) => {
-      mountainMarker[i].addListener('click',()=>{
-        for(const j in mountainMarker){
+      mountainMarkers[i].addListener('click',()=>{
+        for(const j in mountainMarkers){
           // マーカーをクリックしたときに他のウィンドウを閉じる
-          infoWindow[j].close(map, mountainMarker[j]);
+          infoWindow[j].close(map, mountainMarkers[j]);
         }
         // クリックされたマーカーのウィンドウを表示する
-        infoWindow[i].open(map, mountainMarker[i]);
+        infoWindow[i].open(map, mountainMarkers[i]);
         map.setZoom(8)
-        map.setCenter(mountainMarker[i].getPosition());
+        map.setCenter(mountainMarkers[i].getPosition());
       }, { passive: true });
     }
 
@@ -54,7 +54,7 @@
         map,
       }
 
-      mountainMarker[i] = new google.maps.Marker(markerOption);
+      mountainMarkers[i] = new google.maps.Marker(markerOption);
 
       infoWindow[i] = new google.maps.InfoWindow({
         content: mountains[i]['name'],
