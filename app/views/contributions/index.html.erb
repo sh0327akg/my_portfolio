@@ -14,7 +14,7 @@
 <script>
   let map;
   let mountainMarker = [];
-  let mountainInfo = [];
+  let infoWindow = [];
 
   const mountains = gon.mountains
   const centerPosition = { lat: 36.204824, lng: 138.252924 };
@@ -27,32 +27,41 @@
       center: centerPosition,
       zoom: 6,
     });
+
+    const markerEvent = (i) => {
+      mountainMarker[i].addListener('click',()=>{
+        for(const j in mountainMarker){
+          // マーカーをクリックしたときに他のウィンドウを閉じる
+          infoWindow[j].close(map, mountainMarker[j]);
+        }
+        // クリックされたマーカーのウィンドウを表示する
+        infoWindow[i].open(map, mountainMarker[i]);
+        map.setZoom(8)
+        map.setCenter(mountainMarker[i].getPosition());
+      }, { passive: true });
+    }
+
     for(let i = 0; i < mountains.length; i++){
-      mountainMarker[i] = new google.maps.Marker({
-        map,
-        position: { 
-          lat: mountains[i].latitude,
-          lng: mountains[i].longitude,
-        },
+
+      // 緯度・経度のデータを作成
+      const markerLatLng = new google.maps.LatLng({
+        lat: mountains[i]['latitude'],
+        lng: mountains[i]['longitude'],
       });
+      // マーカーの設定
+      const markerOption = {
+        position: markerLatLng,
+        map,
+      }
 
-      // let id = mountains[i]['id'];
+      mountainMarker[i] = new google.maps.Marker(markerOption);
 
-      mountainInfo[i] = new google.maps.InfoWindow({
-        content: mountains[i].name,
+      infoWindow[i] = new google.maps.InfoWindow({
+        content: mountains[i]['name'],
         maxWidth: 300,
       });
 
-      mountainMarker[i].addListener("click", ()=>{
-        mountainInfo[i].open(map, mountainMarker[i]);
-        map.setZoom(8)
-        map.setCenter(mountainMarker[i].getPosition());
-      });
-
-      mountainInfo[i].addListener('closeclick',()=>{
-        map.setZoom(6),
-        map.setCenter(centerPosition)
-      });
+      markerEvent(i);
     }
   }
 
