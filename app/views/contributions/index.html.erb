@@ -1,1 +1,71 @@
-<%= @contribution_number %>
+<div class="container h-screen">
+  <h2>ユーザー一覧</h2>
+  <div class="max-w-full px-10">
+    <div id="map" class="w-full"></div>
+  </div>
+</div>
+
+<style>
+  #map {
+      height: 90vh;
+    }
+</style>
+
+<script>
+  let map;
+  let mountainMarkers = [];
+  let infoWindow = [];
+
+  const mountains = gon.mountains
+  const centerPosition = { lat: 36.204824, lng: 138.252924 };
+
+  function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+      streetViewControl: false,
+      mapTypeControl: false,
+      fullscreenControl: false,
+      center: centerPosition,
+      zoom: 6,
+    });
+
+    const markerEvent = (i) => {
+      mountainMarkers[i].addListener('click',()=>{
+        for(const j in mountainMarkers){
+          // マーカーをクリックしたときに他のウィンドウを閉じる
+          infoWindow[j].close(map, mountainMarkers[j]);
+        }
+        // クリックされたマーカーのウィンドウを表示する
+        infoWindow[i].open(map, mountainMarkers[i]);
+        map.setZoom(8)
+        map.setCenter(mountainMarkers[i].getPosition());
+      }, { passive: true });
+    }
+
+    for(let i = 0; i < mountains.length; i++){
+
+      // 緯度・経度のデータを作成
+      const markerLatLng = new google.maps.LatLng({
+        lat: mountains[i]['latitude'],
+        lng: mountains[i]['longitude'],
+      });
+      // マーカーの設定
+      const markerOption = {
+        position: markerLatLng,
+        map,
+      }
+
+      mountainMarkers[i] = new google.maps.Marker(markerOption);
+
+      infoWindow[i] = new google.maps.InfoWindow({
+        content: mountains[i]['name'],
+        maxWidth: 300,
+      });
+
+      markerEvent(i);
+    }
+  }
+
+  window.initMap = initMap;
+</script>
+
+<script async src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" defer></script>
