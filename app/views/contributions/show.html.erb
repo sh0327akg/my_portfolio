@@ -1,31 +1,57 @@
 <div class="container">
-  <div id="loading">
+  <%# <div id="loading">
     <div id="loader">
       <p class="text-2xl">草刈中...</p>
       <progress class="progress" value="0" max="100"></progress>
     </div>
-  </div>
-  <div id="main-container">
-    <div class="text-center">
-      <h2 class="text-2xl"><span class="text-5xl"><%= @contribution.mountain.name %></span><span class="text-sm">(<%= @contribution.mountain.prefecture %>)</span>級の草を積み上げました！</h2>
-      <p class="text-xl">よっ！<span class="text-3xl"><%= @contribution.mountain.elevation %>m</span> 超え</p>
-    </div>
-    <div class="flex flex-col my-4 w-80 mx-auto">
-      <%= link_to 'みんなの山を見に行く', contributions_path ,class:"grid h-10 bg-base-300 rounded-box place-items-center"%>
-      <%= button_to "Sign in with GitHub", user_github_omniauth_authorize_path, method: :post, data: { turbo: false } %>
-      <div class="divider">OR</div>
-      <%= link_to 'ツイートする', '#', class:"grid h-10 bg-base-300 rounded-box place-items-center"%>
+  </div> %>
+  <div id="main-container" class="bg-[url('/assets/grass.png')] w-full h-full">
+    <div class="p-8">
+      <div class="block text-center p-10">
+        <p class="text-2xl">あなたが積み上げた草は・・・</p>
+        <p><%= @contribution.contribution_number %></p>
+        <p class="text-3xl"><%= @contribution.mountain.name %>(<%= @contribution.mountain.prefecture %>)級</p>
+        <p class="text-3xl"><%= @contribution.mountain.elevation %>m 超えです</p>
+      </div>
+      <div id="map"></div>
+      <div class="flex flex-col my-4 w-60 mx-auto">
+        <%= link_to 'みんなの山を見に行く', contributions_path, class:"grid h-10 bg-base-300 rounded-box place-items-center"%>
+        <div class="divider">OR</div>
+        <%= link_to 'ツイートする', '#', class:"grid h-10 bg-base-300 rounded-box place-items-center"%>
+      </div>
     </div>
   </div>
 </div>
+
+<style>
+  #map {
+      height: 300px;
+      width: 100%;
+    }
+</style>
+
 <script>
-  const loading = document.getElementById('loading');
-  const mainContainer = document.getElementById('main-container');
+  // const loading = document.getElementById('loading');
+  // const mainContainer = document.getElementById('main-container');
 
-  mainContainer.style.display ="none";
+  // mainContainer.style.display ="none";
 
-  setTimeout(()=>{
-      loading.style.display = "none";
-      mainContainer.style.display = "block";
-    }, 3000);
+  // setTimeout(()=>{
+  //     loading.style.display = "none";
+  //     mainContainer.style.display = "block";
+  //   }, 3000);
+  let map;
+
+  function initMap(){
+    map = new google.maps.Map(document.getElementById("map"), {
+      streetViewControl: false,
+      mapTypeControl: false,
+      fullscreenControl: false,
+      center: { lat: 36.204824, lng: 138.252924 },
+      zoom: 10,
+    });
+  }
+
+  window.initMap = initMap;
 </script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" defer></script>
