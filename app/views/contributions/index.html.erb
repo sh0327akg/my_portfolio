@@ -1,7 +1,9 @@
-<div class="container h-screen">
-  <h2>ユーザー一覧</h2>
-  <div class="max-w-full px-10">
-    <div id="map" class="w-full"></div>
+<div class="container py-10">
+  <div class="artboard bg-neutral">
+    <h2>ユーザー一覧</h2>
+    <div class="max-w-full px-10">
+      <div id="map" class="w-full"></div>
+    </div>
   </div>
 </div>
 
@@ -16,7 +18,7 @@
   let mountainMarkers = [];
   let infoWindow = [];
 
-  const mountains = gon.mountains
+  const mountains = gon.mountains;
   const centerPosition = { lat: 36.204824, lng: 138.252924 };
 
   function initMap() {

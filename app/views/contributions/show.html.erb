@@ -5,11 +5,10 @@
       <progress class="progress" value="0" max="100"></progress>
     </div>
   </div> %>
-  <div id="main-container" class="bg-[url('/assets/grass.png')] w-full h-full">
+  <div id="main-container" class="w-full h-full">
     <div class="p-8">
-      <div class="block text-center p-10">
+      <div class="block text-left p-10">
         <p class="text-2xl">あなたが積み上げた草は・・・</p>
-        <p><%= @contribution.contribution_number %></p>
         <p class="text-3xl"><%= @contribution.mountain.name %>(<%= @contribution.mountain.prefecture %>)級</p>
         <p class="text-3xl"><%= @contribution.mountain.elevation %>m 超えです</p>
       </div>
@@ -25,8 +24,10 @@
 
 <style>
   #map {
+      margin: 0 auto;
       height: 300px;
-      width: 100%;
+      width: 80%;
+      border-radius: 8px;
     }
 </style>
 
@@ -40,15 +41,25 @@
   //     loading.style.display = "none";
   //     mainContainer.style.display = "block";
   //   }, 3000);
-  let map;
+  const mountain = gon.mountain;
+  const markerposition = {
+        lat: mountain['latitude'],
+        lng: mountain['longitude'], 
+      }
+
 
   function initMap(){
-    map = new google.maps.Map(document.getElementById("map"), {
+    const map = new google.maps.Map(document.getElementById("map"), {
       streetViewControl: false,
       mapTypeControl: false,
       fullscreenControl: false,
-      center: { lat: 36.204824, lng: 138.252924 },
-      zoom: 10,
+      center: markerposition,
+      zoom: 12,
+    });
+
+    const mountainMarker = new google.maps.Marker({
+      position: markerposition,
+      map,
     });
   }
 
