@@ -23,6 +23,20 @@ module.exports = {
     },
   },
   daisyui:{
-    themes:["emerald"],
+    themes:[
+      {
+        mytheme:{
+          "primary": "#004643",
+          "secondary": "#bbf7d0",
+          "accent": "#f9bc60",
+          "neutral": "#fffffe",
+          "base-100": "#abd1c6",
+          "info": "#a3e635",
+          "success": "#22d3ee",
+          "warning": "#fde047",
+          "error": "#f87171",
+        }
+      }
+    ],
   },
 }

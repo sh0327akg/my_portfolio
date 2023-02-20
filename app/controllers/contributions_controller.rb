@@ -41,6 +41,7 @@ class ContributionsController < ApplicationController
 
   def show
     @contribution = Contribution.find(params[:id])
+    gon.mountain = @contribution.mountain
   end
 
   private
