@@ -1,2 +1,33 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="container">
+  <div class="py-6 sm:py-8 lg:py-12">
+    <div class="max-w-screen-2xl px-4 md:px-8 mx-auto">
+      <div class="flex justify-between items-center gap-8 mb-4 sm:mb-8 md:mb-12">
+        <div class="flex items-center gap-12">
+          <h2 class="text-2xl lg:text-3xl font-bold">My Page</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 sm:grid-cols-3 gap-4 md:gap-6 xl:gap-8">
+        <div class="group h-48 md:h-80 bg-neutral overflow-hidden rounded-lg shadow-lg p-5">
+          <%= image_tag "/assets/default_user_icon", class:"w-36 rounded-full mx-auto"%>
+          <div class="text-center mt-3">
+            <p class="text-xl"><%= @user.nickname %></p>
+            <%= link_to "草を刈る", "#", class:"btn btn-primary text-xl mt-5"%>
+          </div>
+        </div>
+
+        <div class="group h-48 md:h-80 md:col-span-2 bg-primary overflow-hidden rounded-lg shadow-lg">
+        </div>
+
+        <div class="group h-48 md:h-80 md:col-span-2 bg-primary overflow-hidden rounded-lg shadow-lg">
+        </div>
+
+        <div class="group h-48 md:h-80 bg-primary overflow-hidden rounded-lg shadow-lg">
+        </div>
+
+        <div class="group h-48 md:h-80 md:col-span-3 bg-primary overflow-hidden rounded-lg shadow-lg">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
