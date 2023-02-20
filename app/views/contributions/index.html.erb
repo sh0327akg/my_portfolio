@@ -52,6 +52,9 @@
       const markerOption = {
         position: markerLatLng,
         map,
+        icon: {
+          url: "/assets/mountain_marker.svg",
+        },
       }
 
       mountainMarkers[i] = new google.maps.Marker(markerOption);
