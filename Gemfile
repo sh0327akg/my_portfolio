@@ -83,6 +83,7 @@ gem "dotenv-rails"
 gem "graphql-client"
 
 gem "devise"
+gem "responders"
 gem "omniauth"
 gem "omniauth-github"
 gem "omniauth-rails_csrf_protection"
