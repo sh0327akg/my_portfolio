@@ -5,19 +5,31 @@
       <progress class="progress" value="0" max="100"></progress>
     </div>
   </div>
-  <div id="main-container">
-    <div class="text-center">
-      <h2 class="text-2xl"><span class="text-5xl"><%= @contribution.mountain.name %></span><span class="text-sm">(<%= @contribution.mountain.prefecture %>)</span>級の草を積み上げました！</h2>
-      <p class="text-xl">よっ！<span class="text-3xl"><%= @contribution.mountain.elevation %>m</span> 超え</p>
-    </div>
-    <div class="flex flex-col my-4 w-80 mx-auto">
-      <%= link_to 'みんなの山を見に行く', contributions_path ,class:"grid h-10 bg-base-300 rounded-box place-items-center"%>
-      <%= button_to "Sign in with GitHub", user_github_omniauth_authorize_path, method: :post, data: { turbo: false } %>
-      <div class="divider">OR</div>
-      <%= link_to 'ツイートする', '#', class:"grid h-10 bg-base-300 rounded-box place-items-center"%>
+  <div id="main-container" class="w-full h-full bg-base-200">
+    <div class="p-8">
+      <div class="block text-center p-10">
+        <p class="text-2xl">あなたが積み上げた草は <%=  @contribution.contribution_number %>mでした</p>
+        <p class="text-4xl"><span class="text-5xl"><%= @contribution.mountain.name %></span> <%= @contribution.mountain.elevation %>m 級の草！</p>
+      </div>
+      <div id="map"></div>
+      <div class="flex flex-col w-60 mx-auto my-8">
+        <%= link_to 'みんなの山を見に行く', contributions_path, class:"grid h-10 bg-base-300 rounded-box place-items-center"%>
+        <div class="divider">OR</div>
+        <%= link_to 'ツイートする', '#', class:"grid h-10 bg-base-300 rounded-box place-items-center"%>
+      </div>
     </div>
   </div>
 </div>
+
+<style>
+  #map {
+      margin: 0 auto;
+      height: 300px;
+      width: 80%;
+      border-radius: 8px;
+    }
+</style>
+
 <script>
   const loading = document.getElementById('loading');
   const mainContainer = document.getElementById('main-container');
@@ -28,4 +40,32 @@
       loading.style.display = "none";
       mainContainer.style.display = "block";
     }, 3000);
+
+  const mountain = gon.mountain;
+  const markerposition = {
+        lat: mountain['latitude'],
+        lng: mountain['longitude'], 
+      }
+
+
+  function initMap(){
+    const map = new google.maps.Map(document.getElementById("map"), {
+      streetViewControl: false,
+      mapTypeControl: false,
+      fullscreenControl: false,
+      center: markerposition,
+      zoom: 12,
+    });
+
+    const mountainMarker = new google.maps.Marker({
+      position: markerposition,
+      map,
+      icon:{
+        url: "/assets/mountain_marker.svg",
+      }
+    });
+  }
+
+  window.initMap = initMap;
 </script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" defer></script>
