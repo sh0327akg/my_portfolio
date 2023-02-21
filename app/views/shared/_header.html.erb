@@ -1,27 +1,36 @@
 <div class="navbar bg-base-100 h-20">
   <div class="navbar-start">
-    <div class="dropdown">
-      <label tabindex="0" class="btn btn-ghost btn-circle">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
-      </label>
-      <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-        <li><a>Homepage</a></li>
-        <li><a>Portfolio</a></li>
-        <li><a>About</a></li>
-      </ul>
-    </div>
   </div>
   <div class="navbar-center">
     <%= link_to root_path, class:"btn btn-ghost normal-case text-xl" do %>
-      <%= image_tag "/assets/header-logo", size: "130x400"%>
+      <%= image_tag "/assets/header-logo", size: "160x400"%>
     <% end %>
   </div>
-  <div class="navbar-end">
-    <% if user_signed_in? %>
-      <%= current_user.nickname%>
-      <%= link_to "ログアウト", destroy_user_session_path, data:{ turbo_method: :delete }, class:"btn" %>
-    <% else %>
-      <%= button_to "ログイン", user_github_omniauth_authorize_path, data: { turbo: false }, class:"btn" %>
-    <% end %>
-  </div>
+  <% if user_signed_in? %>
+    <div class="navbar-end mr-5">
+      <p class="mr-3"><%= current_user.nickname%></p>
+      <div class="dropdown dropdown-end">
+        <label tabindex="0" class="btn btn-ghost btn-circle avatar border-2">
+          <div class="w-20 rounded-full">
+            <%= image_tag "/assets/default_user_icon"%>
+          </div>
+        </label>
+        <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow neutral rounded-box w-52 text-primary">
+          <li>
+            <%= link_to "マイページ", user_path(current_user.id), class:"justify-between", class:"btn"%>
+          </li>
+          <li>
+            <%= link_to "ユーザー一覧", '#', class:"justify-between", class:"btn mt-3" %>
+          </li>
+          <li>
+            <%= link_to "ログアウト", destroy_user_session_path, data:{ turbo_method: :delete }, class:"btn btn-accent mt-3" %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  <% else %>
+    <div class="navbar-end">
+      <%= button_to "GitHub ログイン", user_github_omniauth_authorize_path, data: { turbo: false }, class:"btn mr-5" %>
+    </div>
+  <% end %>
 </div>
