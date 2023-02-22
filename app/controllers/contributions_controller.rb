@@ -48,16 +48,14 @@ class ContributionsController < ApplicationController
     MyPortfolio::Client.query(Query, variables:).data
   end
 
-  def less_than_fuji(number)
-    if number <= 3776
-      return number 
-    else
-      number -= 3776
-    end
+  def less_than_fuji(contributions)
+    return contributions if contributions <= 3776
+
+    contributions - 3776
   end
 
-  def set_mountains(number)
-    grass_number = less_than_fuji(number)
+  def set_mountains(contributions)
+    grass_number = less_than_fuji(contributions)
     mountain = Mountain.where('elevation <= ?', grass_number).min_by { |m| (m.elevation - grass_number).abs }
     mountain.id
   end
