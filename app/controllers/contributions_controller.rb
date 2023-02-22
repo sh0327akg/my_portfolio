@@ -16,27 +16,25 @@ class ContributionsController < ApplicationController
     gon.mountains = contributions.map(&:mountain).uniq
   end
 
-  def new
-    @contribution = Contribution.new
-  end
+  def new; end
 
   def create
-    account_name = params[:user_name]
     @contribution = Contribution.new
-
-    contribution_number = graphql_result(user: account_name).user.contributions_collection.contribution_calendar.total_contributions
-    @contribution.contribution_number = contribution_number
-    if contribution_number <= Mountain.highest.elevation
-      mountain = set_mountains(contribution_number)
+    account_name = params[:user_name]
+    api_result = graphql_result(user: account_name).user
+    if api_result.present?
+      # データの取り出す
+      contribution_number = api_result.contributions_collection.contribution_calendar.total_contributions
+      # 取得したcontribution数をセットする
+      @contribution.contribution_number = contribution_number
+      # 山のデータをセットする
+      @contribution.mountain_id = set_mountains(contribution_number) if contribution_number >= 10
+      @contribution.save!
+      redirect_to contribution_path(@contribution)
     else
-      # 富士山の標高をcontribution_numberから引く
-      gap_contribution = contribution_number - 3776
-      mountain = set_mountains(gap_contribution)
+      flash.now[:alert] = "ユーザーが見つかりませんでした"
+      render :new, status: :unprocessable_entity
     end
-    @contribution.mountain_id = mountain.id
-    @contribution.save!
-
-    redirect_to contribution_path(@contribution)
   end
 
   def show
@@ -50,7 +48,15 @@ class ContributionsController < ApplicationController
     MyPortfolio::Client.query(Query, variables:).data
   end
 
-  def set_mountains(contribution_number)
-    Mountain.where('elevation <= ?', contribution_number).min_by { |m| (m.elevation - contribution_number).abs }
+  def less_than_fuji(contributions)
+    return contributions if contributions <= 3776
+
+    contributions - 3776
+  end
+
+  def set_mountains(contributions)
+    grass_number = less_than_fuji(contributions)
+    mountain = Mountain.where('elevation <= ?', grass_number).min_by { |m| (m.elevation - grass_number).abs }
+    mountain.id
   end
 end
