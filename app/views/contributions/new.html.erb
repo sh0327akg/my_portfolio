@@ -1,9 +1,17 @@
-<div class="container relative z-10 flex items-center px-6 py-32 mx-auto md:px-1 xl:py-40">
-  <div class="relative z-10 flex flex-col w-full">
-    <%= form_with url: contributions_path, class: "form-control w-full md:auto" do |f| %>
-      <%= f.label :user_name, "GitHubアカウント名を入力", class:"text-base"%>
-      <%= f.text_field :user_name, class: "input input-bordered input-lg", placeholder:"GitHubアカウント名" %>
-      <%= f.submit "Let's 草刈！", class: "btn mt-4"%>
-    <% end %>
+<div class="container">
+  <div class="py-6 sm:py-8 lg:py-12">
+    <div class="max-w-screen-4xl px-4 md:px-8">
+      <h2 class="text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-8">新規草刈</h2>
+      <%= form_with url: contributions_path, class: "form-control rounded-lg md:auto" do |f| %>
+        <div class="mx-auto mb-60">
+          <%= f.label :user_name, "GitHubアカウント名を入力", class:"inline-block text-sm sm:text-base mb-2"%>
+          <%= f.text_field :user_name, class: "input input-bordered input-lg w-full bg-neutral", placeholder:"こちらに入力してください" %>
+          <%= f.submit "Let's 草刈！", class: "btn btn-primary w-full mt-4"%>
+          <div class="text-center mt-5">
+            <%= link_to 'ホーム画面へ戻る', root_path, class:"link link-primary"%>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
