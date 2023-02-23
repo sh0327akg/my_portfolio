@@ -1,10 +1,12 @@
 <div class="navbar bg-base-100 h-20">
   <div class="navbar-start">
   </div>
-  <div class="navbar-center">
-    <%= link_to root_path, class:"btn btn-ghost normal-case text-xl" do %>
-      <%= image_tag "/assets/header-logo", size: "160x400"%>
-    <% end %>
+  <div data-turbo="false">
+    <div class="navbar-center">
+      <%= link_to root_path, class:"btn btn-ghost normal-case text-xl" do %>
+        <%= image_tag "/assets/header-logo", size: "160x400"%>
+      <% end %>
+    </div>
   </div>
   <% if user_signed_in? %>
     <div class="navbar-end mr-5">
