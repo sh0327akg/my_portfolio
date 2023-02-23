@@ -1,21 +1,35 @@
 <div class="container">
-  <div id="loading">
+  <%# <div id="loading">
     <div id="loader">
       <p class="text-2xl">草刈中...</p>
       <progress class="progress" value="0" max="100"></progress>
     </div>
-  </div>
+  </div> %>
   <div id="main-container" class="w-full h-full bg-base-200">
     <div class="p-8">
       <div class="block text-center p-10">
         <p class="text-2xl">あなたが積み上げた草は <%=  @contribution.contribution_number %>mでした</p>
-        <p class="text-4xl"><span class="text-5xl"><%= @contribution.mountain.name %></span> <%= @contribution.mountain.elevation %>m 級の草！</p>
+        <% if @contribution.mountain %>
+          <p class="text-4xl"><span class="text-5xl"><%= @contribution.mountain.name %></span> <%= @contribution.mountain.elevation %>m 級の草！</p>
+        <% else %>
+          <p class="text-4xl">鎌倉大仏まであと<%= 11 - @contibution.contribution_number%>m です!<br>
+            ガンガン積み上げて行きましょう!</p>
+        <% end %>
       </div>
-      <div id="map"></div>
-      <div class="flex flex-col w-60 mx-auto my-8">
-        <%= link_to 'みんなの山を見に行く', contributions_path, class:"grid h-10 bg-base-300 rounded-box place-items-center"%>
-        <div class="divider">OR</div>
-        <%= link_to 'ツイートする', '#', class:"grid h-10 bg-base-300 rounded-box place-items-center"%>
+      <div data-turbo="false">
+        <div id="map"></div>
+      </div>
+      <div class="w-60 mx-auto my-8">
+        <div data-turbo="false">
+          <%= link_to 'みんなの山を見に行く', contributions_path, class:"btn btn-primary grid place-items-center"%>
+          <%= link_to '#', class:"flex btn bg-[#55acee] mt-5" do %>
+            <%= image_tag '/assets/logo-white.svg', size:"38x38", class:"grid place-items-center"%>
+            <div class="text-white ml-3">ツイートして共有</div>
+          <% end %>
+          <div class="text-center mt-5">
+            <%= link_to 'ホーム画面へ戻る', root_path, class:"link link-primary"%>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -31,15 +45,15 @@
 </style>
 
 <script>
-  const loading = document.getElementById('loading');
+  // const loading = document.getElementById('loading');
   const mainContainer = document.getElementById('main-container');
 
-  mainContainer.style.display ="none";
+  // mainContainer.style.display ="none";
 
-  setTimeout(()=>{
-      loading.style.display = "none";
-      mainContainer.style.display = "block";
-    }, 3000);
+  // setTimeout(()=>{
+  //     loading.style.display = "none";
+  //     mainContainer.style.display = "block";
+  //   }, 3000);
 
   const mountain = gon.mountain;
   const markerposition = {
@@ -65,7 +79,7 @@
       }
     });
   }
-
-  window.initMap = initMap;
+  console.log("詳細画面を読み込みました");
+  // window.initMap = initMap;
 </script>
-<script async src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>
