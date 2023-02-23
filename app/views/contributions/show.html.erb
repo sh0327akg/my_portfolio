@@ -9,7 +9,12 @@
     <div class="p-8">
       <div class="block text-center p-10">
         <p class="text-2xl">あなたが積み上げた草は <%=  @contribution.contribution_number %>mでした</p>
-        <p class="text-4xl"><span class="text-5xl"><%= @contribution.mountain.name %></span> <%= @contribution.mountain.elevation %>m 級の草！</p>
+        <% if @contribution.mountain %>
+          <p class="text-4xl"><span class="text-5xl"><%= @contribution.mountain.name %></span> <%= @contribution.mountain.elevation %>m 級の草！</p>
+        <% else %>
+          <p class="text-4xl">鎌倉大仏まであと<%= 11 - @contibution.contribution_number%>m です!<br>
+            ガンガン積み上げて行きましょう!</p>
+        <% end %>
       </div>
       <div data-turbo="false">
         <div id="map"></div>
