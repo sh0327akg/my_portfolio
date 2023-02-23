@@ -8,7 +8,35 @@ module.exports = {
   plugins: [
     require("daisyui"),
   ],
+  theme: {
+    fontSize: {
+      sm: '0.8rem',
+      base: '1rem',
+      xl: '1.25rem',
+      '2xl': '1.8rem',
+      '3xl': '2rem',
+      '4xl': '2.5rem',
+      '5xl': '3.2rem',
+    },
+    container: {
+      center: true,
+    },
+  },
   daisyui:{
-    themes:["emerald"],
+    themes:[
+      {
+        mytheme:{
+          "primary": "#004643",
+          "secondary": "#bbf7d0",
+          "accent": "#f9bc60",
+          "neutral": "#e8e4e6",
+          "base-100": "#abd1c6",
+          "info": "#7dd3fc",
+          "success": "#22d3ee",
+          "warning": "#fde047",
+          "error": "#f87171",
+        }
+      }
+    ],
   },
 }

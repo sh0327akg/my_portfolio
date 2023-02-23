@@ -1,15 +1,38 @@
-<div class="navbar bg-primary text-primary-content px-3 drop-shadow-xl">
-  <div class="flex-1">
-    <a class="btn btn-ghost normal-case text-xl">草刈山雄（仮）</a>
+<div class="navbar bg-base-100 h-20">
+  <div class="navbar-start">
   </div>
-  <div class="navbar-end">
-    <div class="flex-none">
-      <ul class="menu menu-horizontal px-1">
-        <li><a>About</a></li>
-        <li><a>Item 2</a></li>
-        <li><a>Item 3</a></li>
-      </ul>
+  <div data-turbo="false">
+    <div class="navbar-center">
+      <%= link_to root_path, class:"btn btn-ghost normal-case text-xl" do %>
+        <%= image_tag "/assets/header-logo", size: "160x400"%>
+      <% end %>
     </div>
-    <a class="btn">Get started</a>
   </div>
+  <% if user_signed_in? %>
+    <div class="navbar-end mr-5">
+      <p class="mr-3"><%= current_user.nickname%></p>
+      <div class="dropdown dropdown-end">
+        <label tabindex="0" class="btn btn-ghost btn-circle avatar border-2">
+          <div class="w-20 rounded-full">
+            <%= image_tag "/assets/default_user_icon"%>
+          </div>
+        </label>
+        <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow neutral rounded-box w-52 text-primary">
+          <li>
+            <%= link_to "マイページ", user_path(current_user.id), class:"justify-between", class:"btn"%>
+          </li>
+          <li>
+            <%= link_to "ユーザー一覧", '#', class:"justify-between", class:"btn mt-3" %>
+          </li>
+          <li>
+            <%= link_to "ログアウト", destroy_user_session_path, data:{ turbo_method: :delete }, class:"btn btn-accent mt-3" %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  <% else %>
+    <div class="navbar-end">
+      <%= button_to "GitHub ログイン", user_github_omniauth_authorize_path, data: { turbo: false }, class:"btn mr-5" %>
+    </div>
+  <% end %>
 </div>
