@@ -7,12 +7,14 @@
         <p class="mb-10 text-2xl font-bold">生やした草そのままにしていませんか？<br>
           今すぐ刈り取って山にしてみましょう www</p>
         <div class="mx-auto">
-          <div class="flex flex-col w-full border-opacity-50">
-            <div class="grid place-items-center mb-5">
-              <%= link_to "今すぐ草を刈る", new_contribution_path, class: "btn btn-primary btn-wide"%>
-            </div>
-            <div class="grid place-items-center">
-              <%= link_to "山を覗きに行く", contributions_path, class: "btn btn-secondry btn-wide"%>
+          <div  data-turbo="false">
+            <div class="flex flex-col w-full border-opacity-50">
+              <div class="grid place-items-center mb-5">
+                <%= link_to "今すぐ草を刈る", new_contribution_path, class: "btn btn-primary btn-wide"%>
+              </div>
+              <div class="grid place-items-center">
+                <%= link_to "山を覗きに行く", contributions_path, class: "btn btn-secondry btn-wide"%>
+              </div>
             </div>
           </div>
         </div>

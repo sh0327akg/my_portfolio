@@ -7,8 +7,10 @@
           <%= f.label :user_name, "GitHubアカウント名を入力", class:"inline-block text-sm sm:text-base mb-2"%>
           <%= f.text_field :user_name, class: "input input-bordered input-lg w-full bg-neutral", placeholder:"こちらに入力してください" %>
           <%= f.submit "Let's 草刈！", class: "btn btn-primary w-full mt-4"%>
-          <div class="text-center mt-5">
-            <%= link_to 'ホーム画面へ戻る', root_path, class:"link link-primary"%>
+          <div  data-turbo="false">
+            <div class="text-center mt-5">
+              <%= link_to 'ホーム画面へ戻る', root_path, class:"link link-primary"%>
+            </div>
           </div>
         </div>
       <% end %>
