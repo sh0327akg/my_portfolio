@@ -17,7 +17,7 @@
 #  fk_rails_...  (mountain_id => mountains.id)
 #
 class Contribution < ApplicationRecord
-  belongs_to :mountain
+  belongs_to :mountain, optional: true
 
   validates :contribution_number, presence: true
 end
