@@ -24,7 +24,7 @@
         <div data-turbo="false">
           <%= link_to 'みんなの山を見に行く', contributions_path, class:"btn btn-primary grid place-items-center"%>
           <%= link_to '#', class:"flex btn bg-[#55acee] mt-5" do %>
-            <%= image_tag '/assets/logo-white.svg', size:"38x38", class:"grid place-items-center"%>
+            <%= image_tag 'logo-white.svg', size:"38x38", class:"grid place-items-center"%>
             <div class="text-white ml-3">ツイートして共有</div>
           <% end %>
           <div class="text-center mt-5">
@@ -76,11 +76,10 @@
       position: markerposition,
       map,
       icon:{
-        url: "mountain_marker.svg",
+        url: "/assets/mountain_marker.svg",
       }
     });
   }
-  console.log("詳細画面を読み込みました");
-  // window.initMap = initMap;
+
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>
