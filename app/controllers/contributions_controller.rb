@@ -12,8 +12,7 @@ class ContributionsController < ApplicationController
   GRAPHQL
 
   def index
-    contributions = Contribution.all
-    gon.mountains = contributions.map(&:mountain).uniq
+    gon.mountains = Contribution.select(:mountain_id).distinct.map(&:mountain).compact
   end
 
   def new; end
