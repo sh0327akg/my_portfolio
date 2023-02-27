@@ -8,15 +8,7 @@
   </div> %>
   <div id="main-container" class="w-full h-full bg-base-200">
     <div class="p-8">
-      <div class="block text-center p-10">
-        <p class="text-2xl">あなたが積み上げた草は <%=  @contribution.contribution_number %>mでした</p>
-        <% if @contribution.mountain %>
-          <p class="text-4xl"><span class="text-5xl"><%= @contribution.mountain.name %></span> <%= @contribution.mountain.elevation %>m 級の草！</p>
-        <% else %>
-          <p class="text-4xl">鎌倉大仏まであと<%= 11 - @contribution.contribution_number %>m です!<br>
-            ガンガン積み上げて行きましょう!</p>
-        <% end %>
-      </div>
+      <%= render "result", contribution: @contribution %>
       <div data-turbo="false">
         <div id="map"></div>
       </div>
@@ -32,6 +24,7 @@
           </div>
         </div>
       </div>
+      <p class="text-base-500 text-right">「日本の山岳標高一覧」（国土地理院） をもとに作成</p>
     </div>
   </div>
 </div>
