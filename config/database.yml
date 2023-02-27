@@ -85,3 +85,4 @@ production:
   username: my_portfolio
   host: localhost
   password: <%= ENV["MY_PORTFOLIO_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"]%>
