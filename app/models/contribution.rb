@@ -20,4 +20,8 @@ class Contribution < ApplicationRecord
   belongs_to :mountain, optional: true
 
   validates :contribution_number, presence: true
+
+  def higher_fuji?
+    return true if self.contribution_number > 3776
+  end
 end

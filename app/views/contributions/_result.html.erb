@@ -1,0 +1,13 @@
+<div class="block text-center p-10">
+  <p class="text-2xl">あなたが積み上げた草は <%= contribution.contribution_number %>mでした</p>
+  <% if contribution.mountain %>
+    <%if contribution.higher_fuji? %>
+      <%= render "higher_fuji", contribution: contribution %>
+    <% else %>
+      <%= render "less_than_fuji", contribution: contribution %>
+    <% end %>
+  <% else %>
+    <p class="text-4xl">鎌倉大仏まであと<%= 11 - contribution.contribution_number %>m です!<br>
+      ガンガン積み上げて行きましょう!</p>
+  <% end %>
+</div>
