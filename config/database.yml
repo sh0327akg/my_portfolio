@@ -81,7 +81,8 @@ test:
 #
 production:
   <<: *default
-  database: cldif4zk7000s9ro4hbzp5dsu
-  username: cldif4zk5000q9ro4bbr1fdmm
+  database: my_portfolio_production
+  username: my_portfolio
+  host: localhost
   password: <%= ENV["MY_PORTFOLIO_DATABASE_PASSWORD"] %>
-  url: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV["DATABASE_URL"]%>
