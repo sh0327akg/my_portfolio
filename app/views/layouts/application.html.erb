@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HWGT6KD1Q5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HWGT6KD1Q5');
+    </script>
+
     <title><%= page_title(yield(:title)) %></title>
+  
     <%= display_meta_tags(default_meta_tags) %>
     <%= Gon::Base.render_data %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
