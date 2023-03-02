@@ -6,28 +6,98 @@
           <h2 class="text-2xl lg:text-3xl font-bold">My Page</h2>
         </div>
       </div>
-
-      <div class="grid grid-cols-3 sm:grid-cols-3 gap-4 md:gap-6 xl:gap-8">
-        <div class="group h-48 md:h-80 bg-neutral overflow-hidden rounded-lg shadow-lg p-5">
-          <%= image_tag "/assets/default_user_icon", class:"w-36 rounded-full mx-auto"%>
-          <div class="text-center mt-3">
-            <p class="text-xl"><%= @user.nickname %></p>
-            <%= link_to "草を刈る", "#", class:"btn btn-primary text-xl mt-5"%>
+      <div class="flex mb-5">
+        <div class="artboard flex bg-neutral overflow-hidden rounded-lg shadow-lg p-5 mr-5">
+          <div class="w-1/2">
+            <%= image_tag "default_user_icon.jpeg", class:"w-36 rounded-full mx-auto"%>
+            <div class="text-center mt-3">
+              <p class="text-xl"><%= @user.nickname %></p>
+              <%= link_to "新規草刈り", "#", class:"btn btn-primary text-xl mt-5"%>
+            </div>
+          </div>
+          <div>
+            <p>直近の山</p>
+            <p><%= @user%></p>
           </div>
         </div>
 
-        <div class="group h-48 md:h-80 md:col-span-2 bg-primary overflow-hidden rounded-lg shadow-lg">
+        <div class="artboard w-auto bg-primary overflow-hidden rounded-lg shadow-lg">
+          <%= @user %>
         </div>
-
-        <div class="group h-48 md:h-80 md:col-span-2 bg-primary overflow-hidden rounded-lg shadow-lg">
-        </div>
-
-        <div class="group h-48 md:h-80 bg-primary overflow-hidden rounded-lg shadow-lg">
-        </div>
-
-        <div class="group h-48 md:h-80 md:col-span-3 bg-primary overflow-hidden rounded-lg shadow-lg">
+      </div>
+      <div class="bg-neutral rounded-lg shadow-lg p-5">
+        <div data-turbo="false">
+          <div id="map"></div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<style>
+  #map {
+      width: 100%;
+      height: 100vh;
+      margin: 16px auto;
+    }
+</style>
+
+<script>
+  let map;
+  let mountainMarkers = [];
+  let infoWindow = [];
+
+  let mountains = gon.mountains;
+  const centerPosition = { lat: 37.255318, lng: 138.522137 };
+
+  function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+      streetViewControl: false,
+      mapTypeControl: false,
+      fullscreenControl: false,
+      center: centerPosition,
+      zoom: 5.7,
+    });
+
+    const markerEvent = (i) => {
+      mountainMarkers[i].addListener('click',()=>{
+        for(const j in mountainMarkers){
+          // マーカーをクリックしたときに他のウィンドウを閉じる
+          infoWindow[j].close(map, mountainMarkers[j]);
+        }
+        // クリックされたマーカーのウィンドウを表示する
+        infoWindow[i].open(map, mountainMarkers[i]);
+        map.setZoom(8)
+        map.setCenter(mountainMarkers[i].getPosition());
+      }, { passive: true });
+    }
+
+    for(let i = 0; i < mountains.length; i++){
+
+      // 緯度・経度のデータを作成
+      const markerLatLng = new google.maps.LatLng({
+        lat: mountains[i]['latitude'],
+        lng: mountains[i]['longitude'],
+      });
+      // マーカーの設定
+      const markerOption = {
+        position: markerLatLng,
+        map,
+        icon: {
+          url: "<%= asset_path 'mountain_marker.svg' %>",
+        },
+      };
+
+      mountainMarkers[i] = new google.maps.Marker(markerOption);
+
+      infoWindow[i] = new google.maps.InfoWindow({
+        content: mountains[i]['name'],
+        maxWidth: 300,
+      });
+
+      markerEvent(i);
+    }
+  }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>
