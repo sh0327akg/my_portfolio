@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_12_041428) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_03_041140) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,7 +19,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_12_041428) do
     t.bigint "mountain_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["mountain_id"], name: "index_contributions_on_mountain_id"
+    t.index ["user_id"], name: "index_contributions_on_user_id"
   end
 
   create_table "mountains", force: :cascade do |t|
@@ -52,4 +54,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_12_041428) do
   end
 
   add_foreign_key "contributions", "mountains"
+  add_foreign_key "contributions", "users"
 end
