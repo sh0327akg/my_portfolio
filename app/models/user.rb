@@ -28,7 +28,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[github]
   
   has_many :contributions, dependent: :destroy
-  has_many :mountains, through: :contribution
+  has_many :mountains, through: :contributions
 
   validates :uid, presence: true, uniqueness: { scope: :provider }
 
