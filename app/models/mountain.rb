@@ -18,6 +18,7 @@
 #
 class Mountain < ApplicationRecord
   has_many :contributions
+  has_many :users, through: :contributions
 
   scope :highest, -> { order(elevation: :desc).first }
 end
