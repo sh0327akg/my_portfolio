@@ -26,6 +26,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[github]
+  
+  has_many :contributions, dependent: :destroy
+  has_many :mountains, through: :contribution
 
   validates :uid, presence: true, uniqueness: { scope: :provider }
 
