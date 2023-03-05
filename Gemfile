@@ -83,6 +83,7 @@ gem "dotenv-rails"
 gem "graphql-client"
 
 gem "devise"
+gem "devise-i18n"
 gem "responders"
 gem "omniauth"
 gem "omniauth-github"
