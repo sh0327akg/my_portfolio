@@ -9,7 +9,7 @@
       <div class="flex mb-5">
         <div class="artboard flex bg-neutral overflow-hidden rounded-lg shadow-lg p-5 mr-5">
           <div class="w-1/2">
-            <%= image_tag "default_user_icon.jpeg", class:"w-36 rounded-full mx-auto"%>
+            <%= image_tag "default_user_icon.jpg", class:"w-36 rounded-full mx-auto"%>
             <div class="text-center mt-3">
               <p class="text-xl"><%= @user.nickname %></p>
               <%= button_to "新規草刈り", contributions_path(user_name: @user.nickname), class:"btn btn-primary text-xl mt-5"%>
