@@ -18,15 +18,15 @@
           <div class="ml-3">
             <div class="mb-5">
               <p class="font-semibold">直近の草:</p>
-              <p class="text-xl"><%= @user.contributions.last.contribution_number %> 草！</p>
+              <p class="text-xl"><%= @user.decorate.last_contribution_number %></p>
             </div>
             <div class="mb-5">
               <p class="font-semibold">直近の山:</p>
-              <p class="text-xl"><%=@user.mountains.last.name %></p>
+              <p class="text-xl"><%= @user.decorate.last_mountain_name %></p>
             </div>
             <div>
               <p class="font-semibold">草を刈った回数:</p>
-              <p class="text-xl"><%= @user.contributions.count %>回</p>
+              <p class="text-xl"><%= @user.decorate.cut_count %></p>
             </div>
           </div>
         </div>

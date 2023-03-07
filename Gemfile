@@ -87,3 +87,4 @@ gem "omniauth-rails_csrf_protection"
 gem "gon"
 gem "meta-tags"
 gem "dockerfile-rails", ">= 1.1", :group => :development
+gem "draper"
