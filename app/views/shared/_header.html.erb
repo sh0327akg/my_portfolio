@@ -8,7 +8,7 @@
       <% end %>
     </div>
   </div>
-  <% if user_signed_in? %>
+  <% if logged_in? %>
     <div class="navbar-end mr-5">
       <p class="mr-3"><%= current_user.nickname%></p>
       <div class="dropdown dropdown-end">
@@ -27,14 +27,14 @@
             <%= link_to "ユーザー一覧", '#', class:"justify-between", class:"btn mt-3" %>
           </li>
           <li>
-            <%= link_to "ログアウト", destroy_user_session_path, data:{ turbo_method: :delete }, class:"btn btn-accent mt-3" %>
+            <%= link_to "ログアウト", sign_out_path, data:{ turbo_method: :delete }, class:"btn btn-accent mt-3" %>
           </li>
         </ul>
       </div>
     </div>
   <% else %>
     <div class="navbar-end">
-      <%= button_to "GitHub ログイン", user_github_omniauth_authorize_path, data: { turbo: false }, class:"btn mr-5 normal-case" %>
+      <%= button_to "GitHub ログイン", "/auth/github", data: { turbo: false }, class:"btn mr-5 normal-case" %>
     </div>
   <% end %>
 </div>
