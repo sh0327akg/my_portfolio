@@ -81,12 +81,10 @@ group :development do
 end
 gem "dotenv-rails"
 gem "graphql-client"
-
-gem "devise"
-gem "responders"
 gem "omniauth"
 gem "omniauth-github"
 gem "omniauth-rails_csrf_protection"
 gem "gon"
 gem "meta-tags"
 gem "dockerfile-rails", ">= 1.1", :group => :development
+gem "draper"

@@ -18,17 +18,21 @@ class ContributionsController < ApplicationController
   def new; end
 
   def create
-    @contribution = Contribution.new
+    if current_user.nickname == params[:user_name]
+      @contribution = current_user.contributions.build
+    else
+      @contribution = Contribution.new
+    end
     account_name = params[:user_name]
     api_result = graphql_result(user: account_name).user
     if api_result.present?
-      # データの取り出す
+      # データの取り出し、取得したcontribution数をセットする
       contribution_number = api_result.contributions_collection.contribution_calendar.total_contributions
-      # 取得したcontribution数をセットする
       @contribution.contribution_number = contribution_number
       # 山のデータをセットする
       @contribution.mountain_id = set_mountains(contribution_number) if contribution_number >= 10
       @contribution.save!
+      # 保存後に結果画面へ
       redirect_to contribution_path(@contribution)
     else
       flash.now[:alert] = "ユーザーが見つかりませんでした"

@@ -8,31 +8,33 @@
       <% end %>
     </div>
   </div>
-  <% if user_signed_in? %>
+  <% if logged_in? %>
     <div class="navbar-end mr-5">
       <p class="mr-3"><%= current_user.nickname%></p>
       <div class="dropdown dropdown-end">
         <label tabindex="0" class="btn btn-ghost btn-circle avatar border-2">
           <div class="w-20 rounded-full">
-            <%= image_tag "default_user_icon.png"%>
+            <%= image_tag "default_user_icon.jpg"%>
           </div>
         </label>
         <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow neutral rounded-box w-52 text-primary">
-          <li>
-            <%= link_to "マイページ", user_path(current_user.id), class:"justify-between", class:"btn"%>
-          </li>
+          <div data-turbo="false">
+            <li>
+              <%= link_to "マイページ", user_path(current_user.id), class:"justify-between", class:"btn"%>
+            </li>
+          </div>
           <li>
             <%= link_to "ユーザー一覧", '#', class:"justify-between", class:"btn mt-3" %>
           </li>
           <li>
-            <%= link_to "ログアウト", destroy_user_session_path, data:{ turbo_method: :delete }, class:"btn btn-accent mt-3" %>
+            <%= link_to "ログアウト", sign_out_path, data:{ turbo_method: :delete }, class:"btn btn-accent mt-3" %>
           </li>
         </ul>
       </div>
     </div>
   <% else %>
     <div class="navbar-end">
-      <%= button_to "GitHub ログイン", '#', data: { turbo: false }, class:"btn mr-5 normal-case" %>
+      <%= button_to "GitHub ログイン", "/auth/github", data: { turbo: false }, class:"btn mr-5 normal-case" %>
     </div>
   <% end %>
 </div>
