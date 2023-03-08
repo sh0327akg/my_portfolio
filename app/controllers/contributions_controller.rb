@@ -18,7 +18,7 @@ class ContributionsController < ApplicationController
   def new; end
 
   def create
-    if current_user.nickname == params[:user_name]
+    if current_user && current_user.nickname == params[:user_name]
       @contribution = current_user.contributions.build
     else
       @contribution = Contribution.new
