@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_action :require_login
 
+  def index
+    
+  end
+
   def show
     @user = User.find(params[:id])
     gon.mountains = @user.mountains.distinct
