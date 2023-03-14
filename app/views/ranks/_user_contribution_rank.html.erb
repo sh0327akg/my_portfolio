@@ -1,6 +1,11 @@
 <tr class="hover">
   <th><%= user_contribution_rank_counter + 1 %> 位</th>
   <td><%= user_contribution_rank[0].nickname %></td>
-  <td><%= user_contribution_rank[1].contribution_number %> 草</td>
-  <td><%= user_contribution_rank[1].mountain.name %></td>
+  <% if user_contribution_rank[1].present?%>
+    <td><%= user_contribution_rank[1].contribution_number if user_contribution_rank[1].contribution_number.present? %> 草</td>
+    <td><%= user_contribution_rank[1].mountain.name if user_contribution_rank[1].mountain.present? %></td>
+  <% else %>
+    <td></td>
+    <td></td>
+  <% end %>
 </tr>
