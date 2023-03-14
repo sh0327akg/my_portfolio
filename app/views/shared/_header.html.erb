@@ -3,14 +3,14 @@
   </div>
   <div data-turbo="false">
     <div class="navbar-center">
-      <%= link_to root_path, class:"btn btn-ghost normal-case text-xl" do %>
+      <%= link_to root_path, class:"btn btn-ghost normal-case" do %>
         <%= image_tag "header-logo.png", size: "160x400"%>
       <% end %>
     </div>
   </div>
-  <% if logged_in? %>
-    <div class="navbar-end mr-5">
-      <p class="mr-3"><%= current_user.nickname%></p>
+  <div class="navbar-end mr-5">
+    <% if logged_in? %>
+      <p class="mr-3 hidden sm:inline"><%= current_user.nickname %></p>
       <div class="dropdown dropdown-end">
         <label tabindex="0" class="btn btn-ghost btn-circle avatar border-2">
           <div class="w-20 rounded-full">
@@ -24,17 +24,15 @@
             </li>
           </div>
           <li>
-            <%= link_to "ユーザー一覧", '#', class:"justify-between", class:"btn mt-3" %>
+            <%= link_to "ランキング", ranks_path, class:"justify-between", class:"btn mt-3" %>
           </li>
           <li>
             <%= link_to "ログアウト", sign_out_path, data:{ turbo_method: :delete }, class:"btn btn-accent mt-3" %>
           </li>
         </ul>
       </div>
-    </div>
-  <% else %>
-    <div class="navbar-end">
+    <% else %>
       <%= button_to "GitHub ログイン", "/auth/github", data: { turbo: false }, class:"btn mr-5 normal-case" %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>

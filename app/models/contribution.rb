@@ -26,6 +26,6 @@ class Contribution < ApplicationRecord
   validates :contribution_number, presence: true
 
   def higher_fuji?
-    return true if self.contribution_number > 3776
+    self.contribution_number > 3776
   end
 end

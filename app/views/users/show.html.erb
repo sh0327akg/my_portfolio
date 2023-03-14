@@ -77,7 +77,7 @@
         }
         // クリックされたマーカーのウィンドウを表示する
         infoWindow[i].open(map, mountainMarkers[i]);
-        map.setZoom(10)
+        map.setZoom(9)
         map.setCenter(mountainMarkers[i].getPosition());
       }, { passive: true });
     }
@@ -93,15 +93,36 @@
       const markerOption = {
         position: markerLatLng,
         map,
-        icon: {
-          url: "<%= asset_path 'mountain_marker.svg' %>",
-        },
+        icon: function(){
+                if (mountains[i]['elevation'] >= 3000) {
+                  return {
+                    url: "<%= asset_path 'mountain_marker_3000.svg' %>",
+                  }; 
+                } else if (mountains[i]['elevation'] >= 2500) {
+                  return {
+                    url: "<%= asset_path 'mountain_marker_2500.svg' %>",
+                  };
+                } else if (mountains[i]['elevation'] >= 2000) {
+                  return {
+                    url: "<%= asset_path 'mountain_marker_2000.svg' %>",
+                  };
+                } else if (mountains[i]['elevation'] >= 1000) {
+                  return {
+                    url: "<%= asset_path 'mountain_marker_1000.svg' %>",
+                  };
+                } else {
+                  return {
+                    url: "<%= asset_path 'mountain_marker.svg' %>",
+                  };
+                }
+              }(),
       };
 
       mountainMarkers[i] = new google.maps.Marker(markerOption);
 
       infoWindow[i] = new google.maps.InfoWindow({
-        content: mountains[i]['name'],
+        content: `<p class="text-xl">${mountains[i]['name']}</p>`+
+                 `<p class="text-base">標高 ${mountains[i]['elevation']} m</p>`,
         maxWidth: 300,
       });
 
