@@ -46,7 +46,7 @@
         }
         // クリックされたマーカーのウィンドウを表示する
         infoWindow[i].open(map, mountainMarkers[i]);
-        map.setZoom(8)
+        map.setZoom(9)
         map.setCenter(mountainMarkers[i].getPosition());
       }, { passive: true });
     }
@@ -70,7 +70,8 @@
       mountainMarkers[i] = new google.maps.Marker(markerOption);
 
       infoWindow[i] = new google.maps.InfoWindow({
-        content: mountains[i]['name'],
+        content: `<p class="text-xl">${mountains[i]['name']}</p>`+
+                 `<p class="text-base">標高 ${mountains[i]['elevation']} m</p>`,
         maxWidth: 300,
       });
 
