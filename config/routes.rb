@@ -7,4 +7,5 @@ Rails.application.routes.draw do
 
   resources :contributions
   resources :users, only: %i[show]
+  get "/ranks", to: "ranks#rank"
 end
