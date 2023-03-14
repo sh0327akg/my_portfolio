@@ -1,14 +1,16 @@
 <%= content_for(:title,"みんなが積み上げた山")%>
 <div class="container py-5">
-  <div class="text-center">
-    <h2 class="text-2xl lg:text-3xl mb-5 font-bold">みんなが積み上げた山</h2>
-  </div>
-  <div data-turbo="false">
-    <div class="artboard px-5">
-      <div id="map"></div>
+  <div class="bg-neutral rounded-lg shadow-lg p-5">
+    <div class="text-center">
+      <h2 class="text-2xl lg:text-3xl mb-5 font-bold">みんなが積み上げた山</h2>
     </div>
-    <div class="text-center mt-5">
-      <%= link_to 'ホーム画面へ戻る', root_path, class:"link link-primary"%>
+    <div data-turbo="false">
+      <div class="artboard px-5">
+        <div id="map"></div>
+      </div>
+      <div class="text-center mt-5">
+        <%= link_to 'ホーム画面へ戻る', root_path, class:"link link-primary"%>
+      </div>
     </div>
   </div>
 </div>
@@ -62,9 +64,29 @@
       const markerOption = {
         position: markerLatLng,
         map,
-        icon: {
-          url: "<%= asset_path 'mountain_marker.svg' %>",
-        },
+        icon: function(){
+                if (mountains[i]['elevation'] >= 3000) {
+                  return {
+                    url: "<%= asset_path 'mountain_marker_3000.svg' %>",
+                  }; 
+                } else if (mountains[i]['elevation'] >= 2500) {
+                  return {
+                    url: "<%= asset_path 'mountain_marker_2500.svg' %>",
+                  };
+                } else if (mountains[i]['elevation'] >= 2000) {
+                  return {
+                    url: "<%= asset_path 'mountain_marker_2000.svg' %>",
+                  };
+                } else if (mountains[i]['elevation'] >= 1000) {
+                  return {
+                    url: "<%= asset_path 'mountain_marker_1000.svg' %>",
+                  };
+                } else {
+                  return {
+                    url: "<%= asset_path 'mountain_marker.svg' %>",
+                  };
+                }
+              }(),
       };
 
       mountainMarkers[i] = new google.maps.Marker(markerOption);
