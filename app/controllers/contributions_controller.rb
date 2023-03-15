@@ -20,10 +20,10 @@ class ContributionsController < ApplicationController
   def create
     account_name = params[:user_name]
     contribution = if current_user && current_user.nickname == account_name
-                      current_user.contributions.build
-                    else
-                      @contribution = Contribution.new
-                    end
+                     current_user.contributions.build
+                   else
+                     @contribution = Contribution.new
+                   end
     build_contribution_for_user(account_name, contribution)
     if contribution.save
       # 保存後に結果画面へ
@@ -44,13 +44,13 @@ class ContributionsController < ApplicationController
   def build_contribution_for_user(account_name, contribution)
     api_result = graphql_result(user: account_name).user
 
-    if api_result.present?
-      # データの取り出し、取得したcontribution数をセットする
-      contribution_number = api_result.contributions_collection.contribution_calendar.total_contributions
-      contribution.contribution_number = contribution_number
-      # 山のデータをセットする
-      contribution.mountain_id = set_mountains(contribution_number) if contribution_number >= 10
-    end
+    return unless api_result.present?
+
+    # データの取り出し、取得したcontribution数をセットする
+    contribution_number = api_result.contributions_collection.contribution_calendar.total_contributions
+    contribution.contribution_number = contribution_number
+    # 山のデータをセットする
+    contribution.mountain_id = set_mountains(contribution_number) if contribution_number >= 10
   end
 
   def graphql_result(variables = {})
