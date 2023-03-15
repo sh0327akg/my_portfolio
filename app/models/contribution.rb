@@ -26,7 +26,7 @@ class Contribution < ApplicationRecord
   validates :contribution_number, presence: true
 
   def higher_fuji?
-    self.contribution_number > 3776
+    contribution_number > 3776
   end
 
   def display_contribution_number
@@ -36,5 +36,4 @@ class Contribution < ApplicationRecord
   def display_mountain
     mountain ? "「#{mountain.name}」級の草！" : ""
   end
-
 end
