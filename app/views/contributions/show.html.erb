@@ -1,4 +1,12 @@
-<%= content_for(:title,"草刈結果")%>
+<% content_for(:title,"草刈結果")%>
+<% set_meta_tags og: {
+                        description: 'あなたのGitHubの草、生えたままじゃありませんか？早速刈り取ってみましょう!',
+                        image: image_url('ogp_result.png'),
+                      },
+                      twitter: {
+                        card: 'summary_large_image',
+                        image: image_url('ogp_result.png')
+                      } %>
 <div class="container">
   <%# <div id="loading">
     <div id="loader">
