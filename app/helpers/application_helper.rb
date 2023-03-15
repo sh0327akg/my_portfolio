@@ -11,10 +11,10 @@ module ApplicationHelper
       reverse: true,
       separator: '|',
       description: '「草刈山雄」は、GitHubの草から日本にある山の標高と比較し、プログラミングの積み上げを記録するアプリケーションです。生やした草を地図に移植させていこう!',
-      keywords:'草刈山雄',
+      keywords: '草刈山雄',
       charset: 'UTF-8',
       canonical: request.original_url,
-      noidex: ! Rails.env.production?,
+      noidex: !Rails.env.production?,
       icon: [
         { href: image_url('favicon-icon.png'), sizes: '32x32' }
       ],

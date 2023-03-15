@@ -21,7 +21,7 @@ class User < ApplicationRecord
     provider = auth[:provider]
     uid = auth[:uid]
 
-    self.find_or_create_by(provider: provider, uid: uid) do |user|
+    find_or_create_by(provider:, uid:) do |user|
       user.nickname = auth[:info][:nickname]
     end
   end
