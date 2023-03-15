@@ -28,4 +28,13 @@ class Contribution < ApplicationRecord
   def higher_fuji?
     self.contribution_number > 3776
   end
+
+  def display_contribution_number
+    contribution_number ? "積み上げた草は#{contribution_number}草でした！" : "存在しない"
+  end
+
+  def display_mountain
+    mountain ? "「#{mountain.name}」級の草！" : ""
+  end
+
 end
