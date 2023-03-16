@@ -1,15 +1,5 @@
 class ContributionsController < ApplicationController
-  Query = MyPortfolio::Client.parse <<-'GRAPHQL'
-            query($user: String!) {
-              user(login: $user) {
-                contributionsCollection {
-                  contributionCalendar {
-                    totalContributions
-                  }
-                }
-              }
-            }
-  GRAPHQL
+  include GraphqlApi
 
   def index
     gon.mountains = Contribution.select(:mountain_id).distinct.map(&:mountain).compact
@@ -26,7 +16,6 @@ class ContributionsController < ApplicationController
                    end
     build_contribution_for_user(account_name, contribution)
     if contribution.save
-      # 保存後に結果画面へ
       redirect_to contribution_path(contribution)
     else
       flash.now[:alert] = "ユーザーが見つかりませんでした"
@@ -42,19 +31,16 @@ class ContributionsController < ApplicationController
   private
 
   def build_contribution_for_user(account_name, contribution)
-    api_result = graphql_result(user: account_name).user
+    # APIに対してクエリを実行し、totalContirubitonsを取得する
+    api_result = graphql_result(TotalContributionsQuery, user: account_name).user
 
     return unless api_result.present?
 
-    # データの取り出し、取得したcontribution数をセットする
     contribution_number = api_result.contributions_collection.contribution_calendar.total_contributions
+    # 草の数をセットする
     contribution.contribution_number = contribution_number
     # 山のデータをセットする
     contribution.mountain_id = set_mountains(contribution_number) if contribution_number >= 10
-  end
-
-  def graphql_result(variables = {})
-    MyPortfolio::Client.query(Query, variables:).data
   end
 
   def less_than_fuji(contributions)
