@@ -1,0 +1,28 @@
+<% content_for(:title,"使い方")%>
+<main class="container mx-auto my-10 p-4 bg-white rounded shadow">
+  <h2 class="text-2xl font-semibold mb-4">アプリケーションの使い方</h2>
+  <ol class="list-decimal list-outside pl-5">
+    <li class="mb-2">GitHubのアカウント名を入力してください。</li>
+    <li class="mb-2">「Let's 草刈」ボタンをクリックすると、草刈り結果画面に遷移します。</li>
+    <li class="mb-2">この1年のContribution数と日本の山の標高を比較し、登った山が表示されます。</li>
+  </ol>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+    <div class="bg-gray-200 p-4 rounded">
+      <h3 class="text-xl font-semibold mb-2">入力例</h3>
+      <%= image_tag "input_form_example.png", class:"w-full h-auto"%>
+    </div>
+    <div class="bg-gray-200 p-4 rounded">
+      <h3 class="text-xl font-semibold mb-2">結果例</h3>
+      <%= image_tag "result_example.png", class:"w-full h-auto"%>
+    </div>
+  </div>
+
+  <div class="font-semibold text-center text-xl md:text-2xl">
+    さあ、草刈生活を始めよう！
+  </div>
+
+  <div class="text-center mt-8">
+    <%= link_to 'トップページへ戻る', root_path, class: 'bg-primary text-white px-4 py-2 rounded' %>
+  </div>
+</main>
