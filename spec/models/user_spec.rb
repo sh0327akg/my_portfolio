@@ -2,12 +2,14 @@
 #
 # Table name: users
 #
-#  id         :bigint           not null, primary key
-#  nickname   :string           default(""), not null
-#  provider   :string           default(""), not null
-#  uid        :string           default(""), not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                     :bigint           not null, primary key
+#  last_streak_updated_at :datetime
+#  nickname               :string           default(""), not null
+#  provider               :string           default(""), not null
+#  streak_count           :integer          default(0)
+#  uid                    :string           default(""), not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #
 # Indexes
 #

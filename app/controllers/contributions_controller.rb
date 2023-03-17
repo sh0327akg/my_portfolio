@@ -44,9 +44,7 @@ class ContributionsController < ApplicationController
   end
 
   def less_than_fuji(contributions)
-    return contributions if contributions <= 3776
-
-    contributions - 3776
+    contributions <= 3776 ? contributions : contributions - 3776
   end
 
   def set_mountains(contributions)
