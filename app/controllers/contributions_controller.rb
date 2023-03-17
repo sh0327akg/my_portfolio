@@ -28,6 +28,14 @@ class ContributionsController < ApplicationController
     gon.mountain = @contribution.mountain
   end
 
+  def streak
+    if current_user && should_fetch_streak_data?
+      update_user_streak_count
+    else
+      @streak_count = curren_user.streak_count
+    end
+  end
+
   private
 
   def build_contribution_for_user(account_name, contribution)
@@ -44,14 +52,39 @@ class ContributionsController < ApplicationController
   end
 
   def less_than_fuji(contributions)
-    return contributions if contributions <= 3776
-
-    contributions - 3776
+    contributions <= 3776 ? contributions : contributions - 3776
   end
 
   def set_mountains(contributions)
     grass_number = less_than_fuji(contributions)
     mountain = Mountain.where('elevation <= ?', grass_number).min_by { |m| (m.elevation - grass_number).abs }
     mountain.id
+  end
+
+  def should_fetch_streak_data?
+    current_user.last_streak_updated_at.nil? || current_user.last_streak_updated_at < 1.day.ago
+  end
+
+  def update_user_streak_count
+    account_name = current_user.nickname
+    streak_data = graphql_result(ContributionsStreakQuery, user: account_name).user
+
+    return unless streak_data.present?
+    # APIからカレンダーのデータを取得
+    contribution_days = streak_data.contributions_collection.contributionCalendar.weeks.flat_map(&:contributionDays)
+    streak_count = calculate_streak(contribution_days)
+    current_user.update(streak_count: streak_count, last_streak_updated_at: Time.current)
+  end
+
+  def calculate_streak(contribution_days)
+    streak_count = 0
+    current_streak = 0
+
+    contribution_days.reverse_each do |day|
+      break if day.contributionCount.positive?
+      current_streak += 1
+    end
+
+    current_streak
   end
 end
