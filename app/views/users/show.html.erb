@@ -3,36 +3,38 @@
     <div class="max-w-screen-2xl px-4 md:px-8 mx-auto">
       <div class="flex justify-between items-center gap-8 mb-4 sm:mb-8 md:mb-12">
         <div class="flex items-center gap-12">
-          <h2 class="text-2xl lg:text-3xl font-bold">マイページ</h2>
+          <h2 class="text-base md:text-3xl font-bold">マイページ</h2>
         </div>
       </div>
       <div class="flex mb-5">
         <div class="artboard flex bg-neutral overflow-hidden rounded-lg shadow-lg p-5 mr-5">
-          <div class="w-1/2">
+          <div class="">
             <%= image_tag "default_user_icon.jpg", class:"w-36 rounded-full mx-auto"%>
             <div class="text-center mt-3">
               <p class="text-xl"><%= @user.nickname %></p>
-              <%= button_to "新規草刈り", contributions_path(user_name: @user.nickname), class:"btn btn-primary text-xl mt-5"%>
+              <%= button_to "新規草刈り", contributions_path(user_name: @user.nickname), class:"btn btn-primary mt-5 text-sm md:text-xl"%>
             </div>
           </div>
           <div class="ml-3">
             <div class="mb-5">
-              <p class="font-semibold">直近の草:</p>
-              <p class="text-xl"><%= @user.decorate.last_contribution_number %></p>
+              <p class="text-sm md:text-base">直近の草:</p>
+              <p class="font-semibold text-xl"><%= @user.decorate.last_contribution_number %></p>
             </div>
             <div class="mb-5">
-              <p class="font-semibold">直近の山:</p>
-              <p class="text-xl"><%= @user.decorate.last_mountain_name %></p>
+              <p class="text-sm md:text-base">直近の山:</p>
+              <p class="font-semibold text-xl"><%= @user.decorate.last_mountain_name %></p>
             </div>
             <div>
-              <p class="font-semibold">草を刈った回数:</p>
-              <p class="text-xl"><%= @user.decorate.cut_count %></p>
+              <p class="text-sm md:text-base">草を刈った回数:</p>
+              <p class="font-semibold text-xl"><%= @user.decorate.cut_count %></p>
             </div>
           </div>
         </div>
 
-        <div class="artboard w-auto bg-primary overflow-hidden rounded-lg shadow-lg">
-        </div>
+        <%# <div class="artboard w-auto bg-primary overflow-hidden rounded-lg shadow-lg">
+          <div class="w-1/2">
+          </div>
+        </div> %>
       </div>
       <div class="bg-neutral rounded-lg shadow-lg p-5">
         <h4 class="text-xl lg:text-2xl font-bold">マイマップ</h4>

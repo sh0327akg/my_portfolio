@@ -1,23 +1,29 @@
 <div class="navbar bg-base-100 h-20">
   <div class="navbar-start">
+    <%= link_to root_path, class:"btn btn-ghost normal-case w-40 md:w-52 md:hidden" do %>
+      <%= image_tag "header-logo.png" %>
+    <% end %>
   </div>
   <div data-turbo="false">
-    <div class="navbar-center">
-      <%= link_to root_path, class:"btn btn-ghost normal-case" do %>
-        <%= image_tag "header-logo.png", size: "160x400"%>
+    <div class="navbar-center mx-auto">
+      <%= link_to root_path, class:"btn btn-ghost normal-case w-40 hidden md:w-52 md:block" do %>
+        <%= image_tag "header-logo.png" %>
       <% end %>
     </div>
   </div>
-  <div class="navbar-end mr-5">
+  <div class="navbar-end flex items-center mr-5">
+    <%= link_to "ヘルプ", "#", class:"btn bg-base-200 font-bold md:mr-5"%>
     <% if logged_in? %>
-      <p class="mr-3 hidden sm:inline"><%= current_user.nickname %></p>
       <div class="dropdown dropdown-end">
-        <label tabindex="0" class="btn btn-ghost btn-circle avatar border-2">
-          <div class="w-20 rounded-full">
-            <%= image_tag "default_user_icon.jpg"%>
+        <label tabindex="0" class="btn btn-ghost">
+          <p class="mr-3 hidden font-bold sm:inline"><%= current_user.nickname %></p>
+          <div class="avatar">
+            <div class="w-12 rounded-full">
+              <%= image_tag "default_user_icon.jpg" %>
+            </div>
           </div>
         </label>
-        <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow neutral rounded-box w-52 text-primary">
+        <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow neutral rounded-box w-52 text-primary bg-base-300">
           <div data-turbo="false">
             <li>
               <%= link_to "マイページ", user_path(current_user.id), class:"justify-between", class:"btn"%>
