@@ -10,7 +10,7 @@ class UserDecorator < ApplicationDecorator
   def last_mountain_name
     return "まだ山を持っていません" unless mountains.present?
 
-    "#{mountains.last.name} #{mountains.last.kana}"
+    "#{mountains.last.name}"
   end
 
   def cut_count
