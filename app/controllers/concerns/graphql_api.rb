@@ -23,6 +23,23 @@ module GraphqlApi
         }
       }
     GRAPHQL
+
+    ContributionStreakQuery = Client.parse <<-'GRAPHQL'
+      query($user: String!) {
+        user(login: $user) {
+          contributionsCollection {
+            contributionCalendar {
+              weeks {
+                contributionDays {
+                  contributionCount
+                  date
+                }
+              }
+            }
+          }
+        }
+      }
+    GRAPHQL
   end
 
   private
