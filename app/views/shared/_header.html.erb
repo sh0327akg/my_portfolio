@@ -12,13 +12,13 @@
     </div>
   </div>
   <div class="navbar-end flex items-center mr-5">
-    <%= link_to "ヘルプ", help_path, class:"btn bg-base-200 font-bold md:mr-5"%>
+    <%= link_to "使い方", help_path, class:"btn btn-secondary font-bold md:mr-5"%>
     <% if logged_in? %>
       <div class="dropdown dropdown-end">
-        <label tabindex="0" class="btn btn-ghost">
-          <p class="mr-3 hidden font-bold sm:inline"><%= current_user.nickname %></p>
+        <label tabindex="0" class="btn btn-secondary">
+          <p class="mr-3 hidden font-bold normal-case overflow-hidden sm:inline"><%= current_user.nickname %></p>
           <div class="avatar">
-            <div class="w-12 rounded-full">
+            <div class="w-10 rounded-full">
               <%= image_tag "default_user_icon.jpg" %>
             </div>
           </div>
