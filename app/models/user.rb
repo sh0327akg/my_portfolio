@@ -27,4 +27,8 @@ class User < ApplicationRecord
       user.nickname = auth[:info][:nickname]
     end
   end
+
+  def contribution_history
+    contributions.order(created_at: :desc)
+  end
 end
