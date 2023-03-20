@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   delete "/sign_out", to: "sessions#destroy"
 
   resources :contributions
-  resources :users, only: %i[show]
+  resources :users, only: %i[show] do
+    get 'contribution_history', on: :member
+  end
   get "/ranks", to: "ranks#rank"
 end

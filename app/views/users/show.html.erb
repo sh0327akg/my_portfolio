@@ -42,7 +42,7 @@
       <div class="bg-neutral rounded-lg shadow-lg p-5">
         <div class="flex items-center justify-between">
           <h4 class="text-xl lg:text-2xl font-bold">マイマップ</h4>
-          <%= link_to "推移を確認", '#', class:"btn btn-secondary"%>
+          <%= link_to "推移を確認", contribution_history_user_path(@user), class:"btn btn-secondary"%>
         </div>
         <div data-turbo="false">
           <div id="map"></div>
