@@ -1,8 +1,7 @@
-<div class="card w-64 bg-neutral shadow-xl m-3 flex">
-  <div class="card-body">
-    <h2 class="card-title"><%= contribution.contribution_number %>草！</h2>
-    <p><%= contribution.mountain.name %></p>
-    <p><%= contribution.created_at.to_date %></p>
-    <%= image_tag contribution.decorate.display_mountain_img, size: "80x80", class:"float-right" %>
-  </div>
-</div>
+<tr>
+  <th><%= contribution.created_at.to_date %></th>
+  <td><%= contribution.contribution_number %>草！</td>
+  <td><%= contribution.mountain.name if contribution.mountain %></td>
+  <td><%= contribution.mountain.kana if contribution.mountain %></td>
+  <td><%= image_tag contribution.decorate.display_mountain_img, size: "40x40" %></td>
+</tr>
