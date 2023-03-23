@@ -10,6 +10,11 @@ class UsersController < ApplicationController
     @streak_count = @user.streak_count
   end
 
+  def contribution_history
+    @user = User.find(params[:id])
+    @contributions = @user.contribution_history
+  end
+
   private
 
   def should_fetch_streak_data?

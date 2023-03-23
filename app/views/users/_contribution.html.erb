@@ -1,0 +1,7 @@
+<tr>
+  <th><%= contribution.created_at.to_date %></th>
+  <td><%= contribution.contribution_number %>草！</td>
+  <td><%= contribution.mountain.name if contribution.mountain %></td>
+  <td><%= contribution.mountain.kana if contribution.mountain %></td>
+  <td><%= image_tag contribution.decorate.display_mountain_img, size: "40x40" %></td>
+</tr>
