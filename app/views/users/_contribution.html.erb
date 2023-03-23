@@ -1,7 +1,8 @@
-<div class="card w-96 bg-neutral shadow-xl">
+<div class="card w-64 bg-neutral shadow-xl m-3 flex">
   <div class="card-body">
-    <h2 class="card-title"><%= contribution.contribution_number %></h2>
+    <h2 class="card-title"><%= contribution.contribution_number %>草！</h2>
     <p><%= contribution.mountain.name %></p>
     <p><%= contribution.created_at.to_date %></p>
+    <%= image_tag contribution.decorate.display_mountain_img, size: "80x80", class:"float-right" %>
   </div>
 </div>
