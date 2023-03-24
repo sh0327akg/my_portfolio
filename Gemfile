@@ -88,3 +88,4 @@ gem "gon"
 gem "meta-tags"
 gem "dockerfile-rails", ">= 1.1", group: :development
 gem "draper"
+gem "kaminari"
