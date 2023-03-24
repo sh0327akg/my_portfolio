@@ -1,18 +1,18 @@
 <div class="navbar bg-base-100 h-20">
   <div class="navbar-start">
-    <%= link_to root_path, class:"btn btn-ghost normal-case w-40 md:w-52 md:hidden" do %>
+    <%= link_to root_path, class:"normal-case w-40 md:w-52 md:hidden" do %>
       <%= image_tag "header-logo.png" %>
     <% end %>
   </div>
   <div data-turbo="false">
     <div class="navbar-center mx-auto">
-      <%= link_to root_path, class:"btn btn-ghost normal-case w-40 hidden md:w-52 md:block" do %>
+      <%= link_to root_path, class:"normal-case w-40 hidden md:w-52 md:block" do %>
         <%= image_tag "header-logo.png" %>
       <% end %>
     </div>
   </div>
   <div class="navbar-end flex items-center mr-5">
-    <%= link_to "使い方", help_path, class:"btn btn-secondary font-bold md:mr-5"%>
+    <%= link_to "使い方", help_path, class:"btn btn-secondary font-bold mr-3"%>
     <% if logged_in? %>
       <div class="dropdown dropdown-end">
         <label tabindex="0" class="btn btn-secondary">
