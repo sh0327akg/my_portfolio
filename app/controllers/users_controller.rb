@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   def contribution_history
     @user = User.find(params[:id])
-    @contributions = @user.contribution_history
+    @contributions = @user.contribution_history.page(params[:page]).per(10)
   end
 
   private
