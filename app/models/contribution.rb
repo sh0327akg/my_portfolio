@@ -20,6 +20,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Contribution < ApplicationRecord
+  include GraphqlApi
+
   MINIMUM_CONTRIBUTIONS = 10
   FUJI_HEIGHT = 3776
 
@@ -40,9 +42,9 @@ class Contribution < ApplicationRecord
     mountain ? "「#{mountain.name}」級の草！" : ""
   end
 
-  def build_for_user(account_name, query)
+  def build_for_user(account_name)
     # APIに対してクエリを実行し、totalContirubitonsを取得する
-    api_result = GraphqlApi.graphql_result(query, user: account_name).user
+    api_result = GraphqlApi.graphql_result(GraphqlApi::TotalContributionsQuery, user: account_name).user
 
     return unless api_result.present?
 

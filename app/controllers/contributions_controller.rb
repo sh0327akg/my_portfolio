@@ -1,6 +1,4 @@
 class ContributionsController < ApplicationController
-  include GraphqlApi
-
   def index
     gon.mountains = Contribution.select(:mountain_id).distinct.map(&:mountain).compact
   end
@@ -14,7 +12,7 @@ class ContributionsController < ApplicationController
                    else
                      Contribution.new
                    end
-    contribution.build_for_user(account_name, TotalContributionsQuery)
+    contribution.build_for_user(account_name)
     if contribution.save
       redirect_to contribution_path(contribution)
     else
