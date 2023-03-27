@@ -23,11 +23,28 @@ module GraphqlApi
         }
       }
     GRAPHQL
+
+    ContributionStreakQuery = Client.parse <<-'GRAPHQL'
+      query($user: String!) {
+        user(login: $user) {
+          contributionsCollection {
+            contributionCalendar {
+              weeks {
+                contributionDays {
+                  contributionCount
+                  date
+                }
+              }
+            }
+          }
+        }
+      }
+    GRAPHQL
   end
 
   private
 
-  def graphql_result(query, variables = {})
+  def self.graphql_result(query, variables = {})
     Client.query(query, variables:).data
   end
 end
