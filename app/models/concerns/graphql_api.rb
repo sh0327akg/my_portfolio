@@ -44,7 +44,7 @@ module GraphqlApi
 
   private
 
-  def graphql_result(query, variables = {})
+  def self.graphql_result(query, variables = {})
     Client.query(query, variables:).data
   end
 end
