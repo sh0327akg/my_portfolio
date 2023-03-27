@@ -42,7 +42,7 @@ class User < ApplicationRecord
     return unless should_fetch_streak_data?
 
     streak_data = GraphqlApi.graphql_result(GraphqlApi::ContributionStreakQuery, user: nickname).user
-    update_streak_count(streakdata)
+    update_streak_count(streak_data)
   end
 
   def update_streak_count(streak_data)
