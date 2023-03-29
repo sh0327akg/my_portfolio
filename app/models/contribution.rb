@@ -34,14 +34,6 @@ class Contribution < ApplicationRecord
     contribution_number > FUJI_HEIGHT
   end
 
-  def display_contribution_number
-    contribution_number ? "積み上げた草は#{contribution_number}草でした！" : "存在しない"
-  end
-
-  def display_mountain
-    mountain ? "「#{mountain.name}」級の草！" : ""
-  end
-
   def build_for_user(account_name)
     # APIに対してクエリを実行し、totalContirubitonsを取得する
     api_result = GraphqlApi.graphql_result(GraphqlApi::TotalContributionsQuery, user: account_name).user
