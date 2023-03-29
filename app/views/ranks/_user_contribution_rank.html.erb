@@ -1,6 +1,13 @@
+<% offset = (@user_contribution_ranks.current_page - 1) * @user_contribution_ranks.limit_value %>
 <tr class="hover">
-  <th><%= user_contribution_rank_counter + 1 %> 位</th>
+  <th><%= user_contribution_rank_counter + 1 + offset %> 位</th>
   <td><%= user_contribution_rank[0].nickname %></td>
-  <td><%= user_contribution_rank[1].contribution_number %> 草</td>
-  <td><%= user_contribution_rank[1].mountain.name %></td>
+  <% contribution = user_contribution_rank[1] %>
+  <% if contribution.present?%>
+    <td><%= contribution.contribution_number if contribution.contribution_number.present? %> 草</td>
+    <td><%= contribution.mountain&.name %></td>
+  <% else %>
+    <td></td>
+    <td></td>
+  <% end %>
 </tr>
