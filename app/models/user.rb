@@ -53,6 +53,14 @@ class User < ApplicationRecord
     update(streak_count: streak_count, last_streak_updated_at: Time.current)
   end
 
+  def latest_contribution
+    self.contributions.order(created_at: :desc).first if contributions.present?
+  end
+
+  def current_mountain
+    self.latest_contribution.mountain
+  end
+
   private
 
   def calculate_streak(contribution_days)

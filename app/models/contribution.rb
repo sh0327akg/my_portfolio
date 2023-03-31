@@ -44,15 +44,21 @@ class Contribution < ApplicationRecord
     # 草の数をセットする
     self.contribution_number = contribution_number
     # 山のデータをセットする
-    self.mountain_id = set_mountains(contribution_number) if contribution_number >= MINIMUM_CONTRIBUTIONS
+    self.mountain_id = find_nearest_mountain(contribution_number) if contribution_number >= MINIMUM_CONTRIBUTIONS
+  end
+
+  def next_mountain
+    current_mountain = self.mountain
+    higher_mountains = Mountain.where('elevation > ?', current_mountain.elevation).order(elevation: :asc)
+    higher_mountains.first
   end
 
   private
 
-  def set_mountains(contributions)
+  def find_nearest_mountain(contributions)
     grass_number = less_than_fuji(contributions)
-    mountain = Mountain.where('elevation <= ?', grass_number).min_by { |m| (m.elevation - grass_number).abs }
-    mountain.id
+    nearest_mountains = Mountain.where('elevation <= ?', grass_number).group_by { |m| (m.elevation - grass_number).abs }.min&.last
+    nearest_mountains&.sample&.id
   end
 
   def less_than_fuji(contributions)
