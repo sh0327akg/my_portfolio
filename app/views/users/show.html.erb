@@ -23,6 +23,7 @@
             <div class="mb-5">
               <p class="text-sm md:text-base">直近の山:</p>
               <p class="font-semibold text-xl"><%= @user.decorate.last_mountain_name %></p>
+              <p>（次の <%= @next_mountain.name %> まであと<%= @user.latest_contribution.decorate.to_next_mountain %> 草）</p>
             </div>
             <div>
               <p class="text-sm md:text-base">草を刈った回数:</p>

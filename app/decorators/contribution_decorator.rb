@@ -20,4 +20,8 @@ class ContributionDecorator < ApplicationDecorator
       else 'mountain_marker.svg'
     end
   end
+
+  def to_next_mountain
+    next_mountain.elevation - self.contribution_number
+  end
 end

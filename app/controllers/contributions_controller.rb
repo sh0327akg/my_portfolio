@@ -24,5 +24,6 @@ class ContributionsController < ApplicationController
   def show
     @contribution = Contribution.find(params[:id])
     gon.mountain = @contribution.mountain
+    @next_mountain = @contribution.next_mountain
   end
 end
