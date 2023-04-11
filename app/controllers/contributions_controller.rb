@@ -12,8 +12,8 @@ class ContributionsController < ApplicationController
                    else
                      Contribution.new
                    end
-    contribution.build_for_user(account_name)
-    if contribution.save
+    if contribution.build_for_user(account_name)
+      contribution.save
       redirect_to contribution_path(contribution)
     else
       flash.now[:alert] = "ユーザーが見つかりませんでした"
@@ -24,6 +24,6 @@ class ContributionsController < ApplicationController
   def show
     @contribution = Contribution.find(params[:id])
     gon.mountain = @contribution.mountain
-    @next_mountain = @contribution.next_mountain
+    @next_mountain = @contribution.next_mountain if @contribution.mountain
   end
 end

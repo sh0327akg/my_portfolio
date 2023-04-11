@@ -37,14 +37,14 @@ class Contribution < ApplicationRecord
   def build_for_user(account_name)
     # APIに対してクエリを実行し、totalContirubitonsを取得する
     api_result = GraphqlApi.graphql_result(GraphqlApi::TotalContributionsQuery, user: account_name).user
-
-    return unless api_result.present?
-
+    return false if api_result.nil?
     contribution_number = api_result.contributions_collection.contribution_calendar.total_contributions
     # 草の数をセットする
     self.contribution_number = contribution_number
     # 山のデータをセットする
     self.mountain_id = find_nearest_mountain(contribution_number) if contribution_number >= MINIMUM_CONTRIBUTIONS
+
+    true
   end
 
   def next_mountain
