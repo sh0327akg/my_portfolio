@@ -19,7 +19,9 @@
       <div  class="bg-neutral rounded-lg shadow-lg p-5">
         <h2 class="text-2xl lg:text-3xl text-center">草刈結果</h2>
         <%= render "result", contribution: @contribution %>
-        <p class="text-center mb-3">（次の山は... <span class="texl-2xl font-semibold"><%= @next_mountain.name%></span> あと<%= @contribution.decorate.to_next_mountain%>草）</p>
+        <% if @next_mountain.present?%>
+          <p class="text-center mb-3">（次の山は... <span class="texl-2xl font-semibold"><%= @next_mountain.name%></span> あと<%= @contribution.decorate.to_next_mountain%>草）</p>
+        <% end %>
         <div data-turbo="false">
           <div id="map"></div>
         </div>
