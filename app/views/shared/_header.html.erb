@@ -28,10 +28,10 @@
             <li>
               <%= link_to "マイページ", user_path(current_user.id), class:"btn" %>
             </li>
+            <li>
+              <%= link_to "ランキング", ranks_path, class:"btn mt-3" %>
+            </li>
           </div>
-          <li>
-            <%= link_to "ランキング", ranks_path, class:"btn mt-3" %>
-          </li>
           <li>
             <%= link_to "ログアウト", sign_out_path, data:{ turbo_method: :delete }, class:"btn btn-accent mt-3" %>
           </li>
