@@ -21,6 +21,13 @@ class User < ApplicationRecord
   has_many :contributions
   has_many :mountains, through: :contributions
 
+  def self.latest_contributions
+    latest_contributions_by_user = Contribution.group(:user_id).maximum(:created_at)
+    latest_contributions_by_user.delete(nil) # keyがnilのものを取り除く
+    latest_contribution_ids = latest_contributions_by_user.values
+    Contribution.includes(:user).where(created_at: latest_contribution_ids)
+  end
+  
   def self.find_or_create_from_auth(auth)
     provider = auth[:provider]
     uid = auth[:uid]

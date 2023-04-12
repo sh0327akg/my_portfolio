@@ -1,8 +1,8 @@
 <% offset = (@user_contribution_ranks.current_page - 1) * @user_contribution_ranks.limit_value %>
 <tr class="hover">
   <th><%= user_contribution_rank_counter + 1 + offset %> 位</th>
-  <td><%= user_contribution_rank[0].nickname %></td>
-  <% contribution = user_contribution_rank[1] %>
+  <td><%= user_contribution_rank.user.nickname %></td>
+  <% contribution = user_contribution_rank %>
   <% if contribution.present?%>
     <td><%= contribution.contribution_number if contribution.contribution_number.present? %> 草</td>
     <td><%= contribution.mountain&.name %></td>
