@@ -61,7 +61,7 @@ class Contribution < ApplicationRecord
 
   def find_nearest_mountain(contributions)
     grass_number = less_than_fuji(contributions)
-    nearest_mountains = Mountain.where('elevation <= ?', grass_number).min_by { |m| (m.elevation - grass_number).abs }
+    nearest_mountains = Mountain.where('elevation <= ?', grass_number).group_by { |m| (m.elevation - grass_number).abs }.min&.last
     nearest_mountains&.sample&.id
   end
 
