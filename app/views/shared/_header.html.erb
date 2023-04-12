@@ -26,11 +26,11 @@
         <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow neutral rounded-box w-52 text-primary bg-base-300">
           <div data-turbo="false">
             <li>
-              <%= link_to "マイページ", user_path(current_user.id), class:"justify-between", class:"btn"%>
+              <%= link_to "マイページ", user_path(current_user.id), class:"justify-between btn" %>
             </li>
           </div>
           <li>
-            <%= link_to "ランキング", ranks_path, class:"justify-between", class:"btn mt-3" %>
+            <%= link_to "ランキング", ranks_path, class:"justify-between btn mt-3" %>
           </li>
           <li>
             <%= link_to "ログアウト", sign_out_path, data:{ turbo_method: :delete }, class:"btn btn-accent mt-3" %>
