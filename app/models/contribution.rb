@@ -70,8 +70,12 @@ class Contribution < ApplicationRecord
   end
 
   def user_exists?(account_name)
-    uri = "https://github.com/#{account_name}"
-    response = Net::HTTP.get_response(URI.parse(uri))
-    response.code == '200'
+    begin
+      uri = "https://github.com/#{account_name}"
+      response = Net::HTTP.get_response(URI.parse(uri))
+      response.code == '200'
+    rescue URI::InvalidURIError
+      false
+    end
   end
 end
