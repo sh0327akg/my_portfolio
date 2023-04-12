@@ -35,12 +35,7 @@ class Contribution < ApplicationRecord
   end
 
   def build_for_user(account_name)
-    # APIに対してクエリを実行し、totalContirubitonsを取得する
-    api_result = GraphqlApi.graphql_result(GraphqlApi::TotalContributionsQuery, user: account_name).user
-    return false if api_result.nil?
-    contribution_number = api_result.contributions_collection.contribution_calendar.total_contributions
-    # 草の数をセットする
-    self.contribution_number = contribution_number
+    return false unless user_exists?(account_name) && set_contribution_data(account_name)
     # 山のデータをセットする
     self.mountain_id = find_nearest_mountain(contribution_number) if contribution_number >= MINIMUM_CONTRIBUTIONS
 
@@ -55,13 +50,28 @@ class Contribution < ApplicationRecord
 
   private
 
+  def set_contribution_data(account_name)
+    # APIに対してクエリを実行し、totalContirubitonsを取得する
+    api_result = GraphqlApi.graphql_result(GraphqlApi::TotalContributionsQuery, user: account_name).user
+    return false if api_result.nil?
+    self.contribution_number = api_result.contributions_collection.contribution_calendar.total_contributions
+
+    true
+  end
+
   def find_nearest_mountain(contributions)
     grass_number = less_than_fuji(contributions)
-    nearest_mountains = Mountain.where('elevation <= ?', grass_number).group_by { |m| (m.elevation - grass_number).abs }.min&.last
+    nearest_mountains = Mountain.where('elevation <= ?', grass_number).min_by { |m| (m.elevation - grass_number).abs }
     nearest_mountains&.sample&.id
   end
 
   def less_than_fuji(contributions)
     contributions <= FUJI_HEIGHT ? contributions : contributions - FUJI_HEIGHT
+  end
+
+  def user_exists?(account_name)
+    uri = "https://github.com/#{account_name}"
+    response = Net::HTTP.get_response(URI.parse(uri))
+    response.code == '200'
   end
 end

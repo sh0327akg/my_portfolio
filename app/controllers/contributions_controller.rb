@@ -1,6 +1,6 @@
 class ContributionsController < ApplicationController
   def index
-    gon.mountains = Contribution.select(:mountain_id).distinct.map(&:mountain).compact
+    gon.mountains = Contribution.includes(:mountain).select(:mountain_id).distinct.map(&:mountain).compact
   end
 
   def new; end
