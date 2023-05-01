@@ -22,5 +22,37 @@
 require 'rails_helper'
 
 RSpec.describe Contribution, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'validations' do
+    subject { Contribution.new(contribution_number: 100) }
+
+    context 'when contribution_number is present' do
+      it 'is valid' do
+        expect(subject).to be_valid
+      end
+    end
+
+    context 'when contribution_number is nil' do
+      before { subject.contribution_number = nil }
+
+      it 'is not valid' do
+        expect(subject).to_not be_valid
+      end
+    end
+  end
+
+  describe 'associations' do
+    let(:contribution) { Contribution.new }
+    let(:mountain) { Mountain.new }
+    let(:user) { User.new }
+
+    it 'can belong to a mountain' do
+      contribution.mountain = mountain
+      expect(contribution.mountain).to eq(mountain)
+    end
+
+    it 'can belong to a user' do
+      contribution.user = user
+      expect(contribution.user).to eq(user)
+    end
+  end
 end
