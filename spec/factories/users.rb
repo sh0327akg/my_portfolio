@@ -17,8 +17,10 @@
 #
 FactoryBot.define do
   factory :user do
-    provider { "MyString" }
-    uid { "MyString" }
-    nickname { "MyString" }
+    sequence(:nickname) { |n| "user#{n}" }
+    provider { "github" }
+    uid { SecureRandom.uuid }
+    streak_count { 0 }
+    last_streak_updated_at { nil }
   end
 end
